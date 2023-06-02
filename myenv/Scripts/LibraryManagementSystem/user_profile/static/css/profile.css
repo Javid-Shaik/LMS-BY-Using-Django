@@ -1,0 +1,251 @@
+/* * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins" , sans-serif;
+}
+body {
+    background: #ccc;
+}
+
+.navbar {
+    width: 100%;
+    position: fixed;
+}
+
+.navbar .content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.list {
+    display: inline-flex;
+    justify-content: space-between;
+    align-items: center;
+} */
+
+/* Reset default styles */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins" , sans-serif;
+}
+body {
+    background: #1b1b1b;
+}
+main {
+    display: flex;
+    justify-content: flex-start;
+}
+.component {
+    margin-left: 20px;
+    margin-top: 110px;
+    background: #494747;
+    width: 400px;
+    height: 100%;
+    color: #fff;
+    border-radius: 10px;
+
+}
+.component .user {
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    padding-bottom: 10px;
+    border-radius: 10px;
+}
+
+.profile-picture img {
+    margin-top:10px;
+    width: 80px; 
+    height: 80px; 
+    border-radius: 15%;
+    object-fit:cover;
+    margin-left: 20px;
+    margin-right: 40px;
+}
+
+.component .user-info {
+    margin: 10px;
+    font-size: 18px;
+    padding-left: 20px;
+    padding-bottom: 10px;
+}
+
+.component .actions {
+    display: flex;
+    flex-direction:unset;
+    margin: 10px;
+    
+}
+.component .edit-btn button {
+    width: 250px;
+    height: 30px;
+    text-align: center;
+    color: #14e625;
+    background: #344b34;
+    border: none;
+    border-radius: 5px;
+    font-size: 18px;
+    margin-left: 75px;
+    font-weight: 500;
+    cursor: pointer;
+}
+.component .actions button {
+    width: 150px;
+    padding: 10px 10px 10px 10px;
+    height: 40px;
+    text-align: center;
+    color: #1b1b1b;
+    background: #929191;
+    border: none;
+    border-radius: 5px;
+    font-size: 15px;
+    margin-left: 15px;
+    cursor: pointer;
+}
+.component .actions button:hover{
+    background-color: #a3a7a3;
+}
+.activity {
+    margin-top: 100px;
+    color: #ccc;
+    margin-left: 20px;
+}
+
+.activity ul {
+    list-style: none;
+}
+.activity table {
+    border: 1px solid greenyellow;
+    border-style: inset;
+    background: #464747;
+} 
+
+
+.activity td p {
+    font-size: 12px;
+}
+
+@media (max-width: 868px){
+    .component {
+        width: 400px;
+        height:300px
+    }
+    .component .user {
+        font-size: 18px;
+        display: flex;
+        align-items: center;
+        padding-bottom: 10px;
+        border-radius: 10px;
+    }
+    .component .user-info {
+        margin: 5px;
+        font-size: 12px;
+        padding-left: 10px;
+        padding-bottom: 5px;
+    }
+    .component .edit-btn button {
+        width: 180px;
+        height: 30px;
+        text-align: center;
+        color: #14e625;
+        background: #344b34;
+        border: none;
+        border-radius: 5px;
+        font-size: 12px;
+        margin-left: 25px;
+        font-weight: 500;
+        cursor: pointer;
+    }
+    
+    .profile-picture img {
+        margin-top:10px;
+        width: 60px; 
+        height: 60px; 
+        border-radius: 15%;
+        object-fit:cover;
+        margin-left: 15px;
+        margin-right: 25px;
+    }
+    .component .user-name {
+        font-size: 12px;
+    }
+}
+
+.user-profile {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  .member-details,
+  .activity {
+    margin-bottom: 20px;
+  }
+  
+  .activity h2 {
+    margin-bottom: 10px;
+  }
+  
+  .activity table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .activity th,
+  .activity td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ccc;
+  }
+  
+  .activity .book-details {
+    display: flex;
+    align-items: center;
+  }
+  
+  .activity .cover-image {
+    width: 50px;
+    height: 50px;
+    margin-right: 10px;
+  }
+  
+  .activity .cover-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  
+  /* p { */
+    /* margin: 0; */
+  /* } */
+  
+  strong {
+    font-weight: bold;
+  }
+.no-data p{
+    margin-top: 150px;
+    margin-left: 50px;
+    font-size: 20px;
+    color: #ccc;
+} 
+@media only screen and (max-width: 600px) {
+  .activity table {
+    font-size: 14px;
+  }
+
+  .activity .book-details {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .activity .cover-image {
+    margin-right: 0;
+    margin-bottom: 10px;
+  }
+}
+  

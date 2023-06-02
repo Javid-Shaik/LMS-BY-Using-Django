@@ -1,0 +1,107 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width , initial-scale=1.0">
+        <title>LibraQuest</title>
+        <link rel="stylesheet" type="text/css" href="{% static 'css/homestyle.css' %}">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
+        <link rel="stylesheet" href="{% static 'css/profile.css' %}">
+    </head>
+    <body>
+        <nav class="navbar">
+            <div class="content">
+                <div class="logo"><a href="#">LibraQuest</a></div>
+                <ul class="menu-list">
+                    <div class="icon cancel-btn">
+                        <i class="fas fa-times"></i>
+                    </div>
+                    <li>
+                        <div class="search">
+                            <select class="drop-down">
+                                <option>All</option>
+                                <option>Title</option>
+                                <option>Author</option>
+                                <option>Isbn</option>
+                            </select>
+                            <input type="text" name="search" placeholder="Search">
+                            <i class="fas fa-search"></i>
+                        </div>
+                    </li>
+                    <li><a href="{% url 'signup:homepage'%} ">Home</a></li>
+                    <li><a href="#">Quest</a></li>
+                    {% if user.is_authenticated %}
+                    <li>
+                        <a href="{% url 'signup:show_books' %}">Borrow Books</a>
+                    </li>
+                    {% else %}
+                    <li>
+                        <a href="{% url 'signup:login_user' %}">Sign in</a>
+                    {% endif %}
+                    </li>
+                    {% if user.is_authenticated %}
+                        <div class="profile">
+                            {% if user.profile_image.url %}
+                                <li><a href="{% url 'user_profile' username=request.user.username %}" ><img src="{{ user.profile_image.url }}" alt="Profile Picture"></a></li>
+                            {% else %}
+                                <li><a href="{% url 'user_profile' username=request.user.username  %}"><img src="{{ user.profile_image.url }}" alt="Default Profile Picture"></a></li>
+                            {% endif %}
+                        </div>
+                    {% else %}
+                        <li><a href="{%url 'signup:register' %}">Sign Up</a></li>
+                    {% endif %}
+                </ul>
+                <div class="icon menu-btn">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </div>
+        </nav>
+        <div class="about">
+            <div class="error-text">
+                {% if message %}
+                    {% for message in messages %}
+                        {% comment %} {% if message %} {% endcomment %}
+                            {{ message }}
+                        {% comment %} {% endif %} {% endcomment %}
+                    {% endfor %}
+                {% endif %}
+            </div>
+        </div>
+        {% block content %}
+        {% endblock %}
+        <script>
+            const menu = document.querySelector(".menu-list");
+            const navbar = document.querySelector(".navbar");
+            const menuBtn = document.querySelector(".menu-btn");
+            const cancelBtn = document.querySelector(".cancel-btn");
+            const  profile = document.querySelector(".profile")
+
+            menuBtn.onclick = ()=> {
+                menu.classList.add("active");
+                menuBtn.classList.add("hide");
+                profile.classList.add("hide");
+            }
+
+            cancelBtn.onclick = ()=> {
+                menu.classList.remove("active");
+                menuBtn.classList.remove("hide");
+                menuBtn.classList.remove("hide");
+            }
+
+            window.onscroll = ()=> {
+                if(this.scrollY >20) {
+                    navbar.classList.add("sticky");
+                    menu.classList.add("sticky");
+                }
+                else{
+                    navbar.classList.remove("sticky");
+                    menu.classList.remove("sticky");
+                } 
+                
+            }
+        </script>
+    </body>
+</html>
+
+

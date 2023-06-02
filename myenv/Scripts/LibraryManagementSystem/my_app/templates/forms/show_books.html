@@ -1,0 +1,79 @@
+{% extends 'forms/homepage.html' %}
+{% load static %}
+{% block content %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/show_books.css' %}">
+<section >
+    <table class="books">
+        <tr>
+            <td colspan="8" id="borrowNotification"></td>
+        </tr>
+        <tr>
+            <th>SI.NO</th>
+            <th>Book Details</th>
+            <th>Author(s)</th>
+            <th>ISBN</th>
+            <th>Publisher</th>
+            <th>Publication</th>
+            <th>Edition</th>
+            <th>Borrow</th>
+        </tr>
+        {% for book in books %}
+        <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>
+                <div class="cover-image">
+                    <img src= "{{ book.cover_image.url }}" alt="Cover Image">
+                </div>
+                <p>{{ book.title }}</p>
+            </td>
+            <td>{{ book.author_name }}
+            <td>{{ book.isbn }}</td>
+            <td>{{ book.publisher }}</td>
+            <td>{{ book.publication }}</td>
+            <td>{{ book.edition }}</td>
+            <td>
+                <button class="borrow-button">
+                    <a href="{% url 'borrow_books' book_id=book.id %}" ><i class="fas fa-plus"></i></a> Borrow
+                </button>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</section>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+    $(document).ready(function() {
+        $('.borrow-button').click(function(e) {
+            e.preventDefault();
+            var url = $(this).find('a').attr('href');
+            $.ajax({
+                url: url,
+                type: 'GET',
+                success: function(response) {
+                    var message = response.message;
+                    var success = response.success;
+                    showBorrowNotification(message, success);
+                },
+                error: function(xhr, textStatus, errorThrown) {
+                    console.log(xhr.responseText);
+                }
+            });
+        });
+        function showBorrowNotification(message, success) {
+            var notification = $('#borrowNotification');
+            notification.text(message);
+            if (success) {
+                notification.removeClass('error').addClass('success');
+            } else {
+                notification.removeClass('success').addClass('error');
+            }
+            notification.show();
+
+            setTimeout(function() {
+                notification.hide();
+            }, 3000);
+        }
+    });
+</script>
+{% endblock %}
