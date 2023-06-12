@@ -1,9 +1,9 @@
-{% extends 'forms/homepage.html' %}
+{% extends 'forms/base.html' %}
 {% load static %}
 {% block content %}
 <link rel="stylesheet" type="text/css" href="{% static 'css/show_books.css' %}">
 <section >
-    <table class="books">
+    <table class="books book-details">
         <tr>
             <td colspan="8" id="borrowNotification"></td>
         </tr>
@@ -19,7 +19,7 @@
         </tr>
         {% for book in books %}
         <tr>
-            <td>{{ forloop.counter }}</td>
+            <td class="sino">{{ forloop.counter }}</td>
             <td>
                 <div class="cover-image">
                     <img src= "{{ book.cover_image.url }}" alt="Cover Image">

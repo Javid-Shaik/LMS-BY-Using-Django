@@ -1,7 +1,8 @@
-{% extends 'forms/homepage.html' %}
+{% extends 'forms/base.html' %}
 {%load static %}
 {% block content %}
 <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+<div class='full-container'>
 <div class="container">
     <div class="wrapper">
         <section class="form login">
@@ -34,6 +35,7 @@
             <div class="link">Not yet signed up? <a href="{% url 'signup:register' %}">Signup now</a></div>
         </section>
     </div>
+</div>
     {% comment %} <p>{% lorem 100 b random %} {% endcomment %}
     <script src="{% static 'js/pass-show-hide.js' %}"></script>
 {% endblock %}

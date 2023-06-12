@@ -77,3 +77,4 @@ def borrow_books(request , book_id):
         book.save()
         return JsonResponse({'message': message, 'success': True})
     
+    

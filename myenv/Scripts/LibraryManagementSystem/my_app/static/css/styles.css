@@ -15,8 +15,15 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    flex: 1;
+    margin-bottom: 10px;
 }
-
+.full-container {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+  
 .wrapper {
     background: #302f2f;
     width: 450px;

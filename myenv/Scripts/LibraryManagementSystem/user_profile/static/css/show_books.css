@@ -25,117 +25,162 @@
     width: 100%;
     border-collapse: collapse;
     margin-top: 100px;
-  }
+}
   
-  .books th,
-  .books td {
-    padding: 5px;
-    text-align: left;
-    border-bottom: 1px solid #ddd;
-  }
-  
-  .books th {
-    background-color: #ccc;
-    color: #1b1b1b;
-  }
-  
-  /* Cover Image Styling */
-  .cover-image img {
-    width: 75px;
-    height: 100px;
-    object-fit: cover;
-    border-radius: 5px;
-    padding-top: 2px;
-  }
-  
-  /* Book Details Styling */
-  .books td:nth-child(2) {
-    display: flex;
-    align-items: center;
-  }
-  
-  .books td p {
-    margin: 0;
-  }
-  
-  /* Alternate Row Styling */
-  .books tr:nth-child(even) {
-    background-color: #4e4c4c;
-  }
-  
-  /* SI.NO Column Styling */
-  .books td:first-child {
-    font-weight: bold;
-  }
-  
-  /* Borrow button css */
-  .borrow-button {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    padding: 10px 20px;
-    background-color: #1e90ff;
-    color: #fff;
-    border: none;
-    border-radius: 4px;
-    font-size: 12px;
-    cursor: pointer;
-    line-height: 1px;
-  }
-  .borrow-button a{
-    text-decoration: none;
-  }
-  .borrow-button a {
-    margin-right: 8px;
-  }
-  
-  .borrow-button:hover {
-    background-color: #0066cc;
-  }
-  
-  .borrow-button:focus {
-    outline: none;
-    box-shadow: 0 0 0 3px rgba(30, 144, 255, 0.3);
-  }
+.books th,
+.books td {
+  padding: 5px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.books th {
+  background-color: #ccc;
+  color: #1b1b1b;
+}
+
+/* Cover Image Styling */
+.cover-image img {
+  width: 75px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 5px;
+  padding-top: 2px;
+}
+
+/* Book Details Styling */
+.books td:nth-child(2) {
+  display: flex;
+  align-items: center;
+}
+
+.books td p {
+  margin: 0;
+}
+
+/* Alternate Row Styling */
+.books tr:nth-child(even) {
+  background-color: #4e4c4c;
+}
+
+/* SI.NO Column Styling */
+.books td:first-child {
+  font-weight: bold;
+}
+
+/* Borrow button css */
+.borrow-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 20px;
+  background-color: #1e90ff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  font-size: 12px;
+  cursor: pointer;
+  line-height: 1px;
+}
+.borrow-button a{
+  text-decoration: none;
+}
+.borrow-button a {
+  margin-right: 8px;
+}
+
+.borrow-button:hover {
+  background-color: #0066cc;
+}
+
+.borrow-button:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(30, 144, 255, 0.3);
+}
 
   /* Modal container */
-  .modal-container {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    display: none;
-    z-index: 9999;
+.modal-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  display: none;
+  z-index: 9999;
+}
+/* Modal content */
+.modal-content {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+} 
+.book-details {
+  display: flex;
+  align-items: center;
+}
+
+/* Hero Section Styles */
+.hero {
+  background-image: url("hero-image.jpg");
+  background-size: cover;
+  background-position: center;
+  padding: 100px 0;
+}
+
+.hero-content {
+  text-align: center;
+}
+
+.hero-content h2 {
+  font-size: 36px;
+  margin-bottom: 20px;
+}
+
+.hero-content p {
+  font-size: 18px;
+  margin-bottom: 40px;
+}
+
+.cta-button {
+  padding: 12px 30px;
+  background-color: #555;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 4px;
+  font-size: 18px;
+  transition: background-color 0.3s ease;
+}
+
+.cta-button:hover {
+  background-color: #333;
+}
+
+
+/* Responsive Styling */
+
+@media (max-width: 868px) {
+  .books th,
+  .books td {
+    padding-left: 3px;
+    font-size: 10px;
   }
 
-  /* Modal content */
-  .modal-content {
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 5px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-  } 
-  /* Responsive Styling */
-  @media (max-width: 868px) {
-    .books th,
-    .books td {
-      padding: 8px;
+  .cover-image img {
+    width: 50px;
+    height: 70px;
+  }
+  .borrow-button {
       font-size: 10px;
+      padding: 5px 10px;
+  }
+  .borrow-button a {
+      margin-right: 4px;
     }
-  
-    .cover-image img {
-      width: 50px;
-      height: 80px;
-    }
-    .borrow-button {
-        font-size: 10px;
-        padding: 5px 10px;
-    }
-    .borrow-button a {
-        margin-right: 4px;
-      }
-    }
+  }
+
+
+    

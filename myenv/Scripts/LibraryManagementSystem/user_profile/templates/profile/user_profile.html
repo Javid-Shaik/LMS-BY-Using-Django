@@ -1,4 +1,4 @@
-{% extends 'forms/homepage.html' %}
+{% extends 'forms/base.html' %}
 {% load static %}
 {% block content %}
     <header>
@@ -47,6 +47,7 @@
                     <th>Due Date</th>
                     <th>Return Date</th>
                     <th>Status</th>
+                    <th>Return</th>
                 </tr>
                 {% for borrowing in borrowings %}
                     <tr>
@@ -56,12 +57,17 @@
                                 <img src= "{{ borrowing.book.cover_image.url }}" alt="Cover Image">
                             </div>
                             <p>{{ borrowing.book.title }}</p>
-                            <p>Author(s) : {{ borrowing.book.author_name }}</p>
+                            <p style="color:#fff">Author(s) : {{ borrowing.book.author_name }}</p>
                         </td>
                        <td>{{ borrowing.borrowed_date}}</td>
                        <td>{{ borrowing.due_date }}</td>
                        <td>{{ borrowing.return_date }}</td>
                        <td>{{ borrowing.status }}</td>
+                       <td>
+                        <button class="return-button">
+                            <a href="#"><i class="fas fa-minus"></i></a> Return
+                        </button>
+                        </td>
                     </tr>
                 {% endfor %}
             </table>

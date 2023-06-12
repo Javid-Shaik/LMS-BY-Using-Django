@@ -19,7 +19,21 @@
 ::selection{
     background: rgb(0,123,255,0.3);
 }
+html {
+    height: 100%;
+}
+  
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+}
 
+footer {
+  margin-top: auto;
+  padding-top: 10px;
+}
+  
 .content {
     max-width: 1250px;
     margin: auto;
@@ -68,6 +82,7 @@
     transition: all 0.3s ease;
     margin-left: 25px;
 }
+
 .menu-list.sticky li a{
     color: #ccc;
 }
@@ -133,6 +148,11 @@
     object-fit: cover;
     margin-left: 20px;
 }
+.profile li a:hover{
+    background-image: black;
+}
+
+
 @media (max-width : 868px){
     .icon{
         display: block;
@@ -147,16 +167,15 @@
         top: 15px;
     }
      .navbar .menu-list{
-        width: 100%;
+        width: 50%;
         position: fixed;
         top: 0;
         left: -100%; 
         background: #1f1e1e;
-        padding: 40px 0;
+        padding: 20px 0;
         height: 100vh;
-        max-width: 400px;
+        max-width: 300px;
         display: block;
-        padding: 40px 0;
         text-align: center;
         transition: all 0.3s ease;
     } 
@@ -165,13 +184,14 @@
     }
     .navbar .menu-list li{
         margin-top: 25px;
+        font-size:12px;
     }
     .navbar.show .menu-list{
         left: 0%;
     }
     .navbar .menu-list li a{
-        font-size: 23px;
-        margin-left: -100px;
+        font-size: 12px;
+        margin-left: 10px;
         transition: 0.6s cubic-bezier(0.68, -0.55,0.265,1.55);
     }
     .navbar.show .menu-list a{
@@ -180,10 +200,12 @@
     .menu-list.sticky li a:hover{
         color: #007bff;
     }
+    .search {
+    display:none;
+    }
 }
 @media (max-width : 1230px){
     .navbar .logo a{
         font-size: 27px;
     }
 }
-

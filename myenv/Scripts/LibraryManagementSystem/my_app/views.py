@@ -93,7 +93,7 @@ def login_user(request):
     
 def logout_user(request):
     logout(request)
-    messages.error(request, "You Were Logged Out...",'homepage')
+    messages.error(request, "You Were Logged Out...",'base')
     return redirect('signup:homepage')
     
 def show_books(request):
