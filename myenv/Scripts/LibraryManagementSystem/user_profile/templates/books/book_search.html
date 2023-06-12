@@ -1,0 +1,41 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Book Details</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        .container {
+            margin-top: 50px;
+        }
+        .card-body p{
+            font-size:12px;
+            padding-top: 1px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Book Details</h1>
+        <hr>
+        <div class="row">
+            {% for book in books %}
+                <div class="col-md-2 mb-3">
+                    <div class="card">
+                        <img src="{{ book.cover_image.url }}" class="card-img-top" alt="Book Cover">
+                        <div class="card-body">
+                            <h6 class="card-title">{{ book.title }}</h6>
+                            <p class="card-text">Author: {{ book.author_name }}</p>
+                            <p class="card-text">ISBN: {{ book.isbn }}</p>
+                            <p class="card-text">Publisher: {{ book.publisher }}</p>
+                            <p class="card-text">Publication: {{ book.publication }}</p>
+                            <p class="card-text">Edition: {{ book.edition }}</p>
+                            <a href="#" class="btn btn-primary">Borrow</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>

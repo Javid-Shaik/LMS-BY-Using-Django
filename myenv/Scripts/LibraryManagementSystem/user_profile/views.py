@@ -5,6 +5,7 @@ from django.core.files.storage import default_storage
 # from django.contrib import messages
 from datetime import date, timedelta
 from django.http import JsonResponse
+from django.db.models import Q
 # Create your views here.
 def user_profile(request , username ):
     try :
@@ -76,5 +77,24 @@ def borrow_books(request , book_id):
         book.availability = 'No'
         book.save()
         return JsonResponse({'message': message, 'success': True})
+    
+def book_search(request):
+    book_domain = request.GET.get('book_domain')
+    search_text = request.GET.get('text')
+    books = None
+    lookup = Q()
+    if book_domain == 'All':
+        lookup = Q(title__icontains=search_text) | Q(author_name__icontains=search_text) | Q(isbn__icontains=search_text)
+    if book_domain == 'Title':
+        lookup |= Q(title__icontains=search_text)
+    elif book_domain == 'Author':
+        lookup |= Q(author_name__icontains=search_text)
+    elif book_domain == 'Isbn':
+        lookup |= Q(isbn__icontains=search_text)
+    books = Books.objects.filter(lookup)
+    return render(request , 'books/book_search.html', {
+        'books' : books,
+        # 'query' : lookup
+    })
     
     

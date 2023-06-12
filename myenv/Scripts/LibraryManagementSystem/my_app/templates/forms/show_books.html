@@ -68,11 +68,15 @@
             } else {
                 notification.removeClass('success').addClass('error');
             }
+            scrollToTop();
             notification.show();
 
             setTimeout(function() {
                 notification.hide();
             }, 3000);
+        }
+        function scrollToTop() {
+            $('html, body').animate({ scrollTop: 0 }, 'fast');
         }
     });
 </script>

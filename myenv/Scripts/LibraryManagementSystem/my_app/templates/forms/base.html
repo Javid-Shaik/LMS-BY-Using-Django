@@ -20,13 +20,13 @@
                     <li>
                         <div class="search">
                             <select class="drop-down">
-                                <option>All</option>
-                                <option>Title</option>
-                                <option>Author</option>
-                                <option>Isbn</option>
+                                <option value="All">All</option>
+                                <option value="Title">Title</option>
+                                <option value="Author">Author</option>
+                                <option value="Isbn">Isbn</option>
                             </select>
-                            <input type="text" name="search" placeholder="Search">
-                            <i class="fas fa-search"></i>
+                            <input type="text" name="search" placeholder="Search" class="search-box">
+                            <i class="fas fa-search" onclick="book_search()"></i>
                         </div>
                     </li>
                     <li><a href="{% url 'signup:homepage'%} ">Home</a></li>
@@ -97,6 +97,31 @@
                     menu.classList.remove("sticky");
                 } 
                 
+            }
+
+            const search_box = document.querySelector(".search-box");
+
+            search_box.addEventListener('keyup', function(event) {
+                // Check if the Enter key was pressed (key code 13)
+                if (event.keyCode === 13) {
+                  // Call the search function
+                  book_search();
+                }
+            });
+
+            function book_search(){
+                const dropdown = document.querySelector(".drop-down");
+                var book_domain = dropdown.value;
+                var searchInput = document.querySelector('input[name="search"]');
+                var searchValue = searchInput.value;
+                var url = "{% url 'book_search'%}?book_domain=" + book_domain+"&text="+ searchValue;
+                if (searchValue === "") {
+                    // If both dropdown value and search text are empty, redirect to the default book search page
+                    window.location.href = "{% url 'signup:homepage' %}";
+                } else {
+                    // Redirect to the book search page with the selected dropdown value and search text
+                    window.location.href = url;
+                }
             }
         </script>
         <footer>

@@ -7,11 +7,10 @@
 }
 
 .container {
-    min-height: 100vh;
     background: #1b1b1b;
     overflow: auto;
     position: sticky;
-    margin-top: 70px;
+    margin-top: 7.5%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -26,7 +25,7 @@
   
 .wrapper {
     background: #302f2f;
-    width: 450px;
+    width: 400px;
     border-radius: 16px;
     box-shadow: 0 0 128px 0 rgba(0,0,0,0.1),
                 0 32px 64px -48px rgba(0,0,0,0.5);
@@ -40,13 +39,13 @@
     font-weight: 800;
 } */
 .form {
-    padding: 25px 30px;
+    padding: 15px 20px;
 }
 
 .form header {
     font-size: 25px;
     font-weight: 600;
-    padding-bottom: 10px;
+    padding-bottom: 5px;
     border-bottom: 1px solid #e6e6e6;
     color: #e6e6e6;
 }
@@ -81,21 +80,22 @@ form .name-details .field:last-child{
 }
 .form form .field input {
     outline: none;
+    font-size: 12px;
 }
 .form form .field label {
     margin-bottom: 2px;
     color: #e6e6e6;
+    font-size: 12px;
 }
-.form form .field input {
-    outline: none;
-}
+
 .form form .input input {
     height: 40px;
     width: 100%;
-    font-size: 16px;
+    font-size: 12px;
     padding: 0 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
+    height: 30px;
 }
 input[type="number"]::-webkit-inner-spin-button,
 input[type="number"]::-webkit-outer-spin-button {
@@ -104,7 +104,7 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 
 .form form .Role label{
-    font-size: 18px;
+    font-size: 12px;
     color: #e6e6e6;
 }
 .form form .Role input {
@@ -115,17 +115,18 @@ input[type="number"]::-webkit-outer-spin-button {
     border-radius: 5px;
     outline: none;
     resize: none;
-    font-size: 18px;
+    font-size: 12px;
 }
 .form form .image input {
-    font-size: 17px;
+    font-size: 12px;
+    color: #ccc;
 }
 
 .form form .button input {
     margin-top: 13px;
-    height: 45px;
+    height: 35px;
     border: none;
-    font-size: 17px;
+    font-size: 15px;
     font-weight: 500;
     background: #797878;
     color: #fff;
@@ -159,6 +160,21 @@ input[type="number"]::-webkit-outer-spin-button {
     color: #333;
     content: "\f070";
 }
+
+@media (max-width: 768px) {
+    .wrapper{
+        width: auto;
+    }
+}
+
+@media (max-width: 480px) {
+  .wrapper {
+    width: 50%;
+    border-radius: 0;
+    box-shadow: none;
+  }
+}
+
 
 /* NavBar css code */
 /*Users css code 
