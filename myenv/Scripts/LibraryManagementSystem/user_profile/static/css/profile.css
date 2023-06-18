@@ -153,12 +153,12 @@ main {
   strong {
     font-weight: bold;
   }
-.no-data p{
+/* .no-data p{
     margin-top: 150px;
     margin-left: 50px;
     font-size: 20px;
     color: #ccc;
-} 
+}  */
 .return-button {
     display: inline-flex;
     align-items: center;

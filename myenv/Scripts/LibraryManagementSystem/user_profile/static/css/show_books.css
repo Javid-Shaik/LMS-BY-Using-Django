@@ -124,43 +124,6 @@
   align-items: center;
 }
 
-/* Hero Section Styles */
-.hero {
-  background-image: url("hero-image.jpg");
-  background-size: cover;
-  background-position: center;
-  padding: 100px 0;
-}
-
-.hero-content {
-  text-align: center;
-}
-
-.hero-content h2 {
-  font-size: 36px;
-  margin-bottom: 20px;
-}
-
-.hero-content p {
-  font-size: 18px;
-  margin-bottom: 40px;
-}
-
-.cta-button {
-  padding: 12px 30px;
-  background-color: #555;
-  color: #fff;
-  text-decoration: none;
-  border-radius: 4px;
-  font-size: 18px;
-  transition: background-color 0.3s ease;
-}
-
-.cta-button:hover {
-  background-color: #333;
-}
-
-
 /* Responsive Styling */
 
 @media (max-width: 868px) {

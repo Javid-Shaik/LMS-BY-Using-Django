@@ -101,3 +101,9 @@ def show_books(request):
     return render(request , 'forms/show_books.html' , {
         'books' : books
     })
+    
+def featured_books(request):
+    books = Books.objects.filter(availability="No")
+    return render(request , 'forms/featured_books.html' , {
+        'featured_books' : books
+    })

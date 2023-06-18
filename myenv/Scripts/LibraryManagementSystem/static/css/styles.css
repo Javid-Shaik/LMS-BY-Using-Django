@@ -74,6 +74,7 @@ form .name-details .field:last-child{
     height: 40px;
     width: 100%;
     font-size: 16px;
+    font-weight: 500;
     padding: 0 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
@@ -81,6 +82,7 @@ form .name-details .field:last-child{
 
 .form form .image input {
     font-size: 17px;
+    font-weight: 500;
 }
 
 .form form .button input {

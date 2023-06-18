@@ -1,41 +1,78 @@
+{% extends 'forms/base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Book Details</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+{% block content %}
+<link rel='stylesheet'  href="{% static 'css/featured_books.css' %}">
+<section>
+    <h2 id="borrowNotification"></h2>
+    <div class="featured-books">
+        {% for book in books %}
+        <div class="book-card">
+            <img src="{{ book.cover_image.url }}" alt="{{ book.title }}" class="book-image">
+            <h6 class="card-title">{{ book.title }}</h6>
+            <p class="card-text">Author: {{ book.author_name }}</p>
+            <p class="card-text">ISBN: {{ book.isbn }}</p>
+            <p class="card-text">Publisher: {{ book.publisher }}</p>
+            <p class="card-text">Publication: {{ book.publication }}</p>
+            <p class="card-text">Edition: {{ book.edition }}</p>
+            <button class="borrow-button">
+                <a href="{% url 'borrow_books' book_id=book.id %}" ></a> Borrow
+            </button>
+            <h5 id="login_error"></h5>
+        </div>
+        {% empty %}
+          
+        {% endfor %}
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('.borrow-button').click(function(e) {
+                e.preventDefault();
+                var url = $(this).find('a').attr('href');
+                $.ajax({
+                    url: url,
+                    type: 'GET',
+                    success: function(response) {
+                        var message = response.message;
+                        var success = response.success;
+                        showBorrowNotification(message, success);
+                    },
+                    error: function(xhr, textStatus, errorThrown) {
+                        console.log(xhr.responseText);
+                    }
+                });
+            });
+            function showBorrowNotification(message, success) {
+                var notification = $('#borrowNotification');
+                var login_error = $('#login_error');
+                notification.text(message);
+                if (success) {
+                    notification.removeClass('error').addClass('success');
+                    login_error.removeClass('error').addClass('success');
+                } else {
+                    notification.removeClass('success').addClass('error');
+                    login_error.removeClass('success').addClass('error');
+                }
+                scrollToTop();
+                notification.show();
+    
+                setTimeout(function() {
+                    notification.hide();
+                }, 3000);
+            }
+            function scrollToTop() {
+                $('html, body').animate({ scrollTop: 0 }, 'fast');
+            }
+        });
+    </script>
     <style>
-        .container {
-            margin-top: 50px;
+        #login_error.success {
+            display:none;
         }
-        .card-body p{
-            font-size:12px;
-            padding-top: 1px;
+        #login_error.error {
+            text:"Please login to Continue";
+            display:block;
         }
     </style>
-</head>
-<body>
-    <div class="container">
-        <h1>Book Details</h1>
-        <hr>
-        <div class="row">
-            {% for book in books %}
-                <div class="col-md-2 mb-3">
-                    <div class="card">
-                        <img src="{{ book.cover_image.url }}" class="card-img-top" alt="Book Cover">
-                        <div class="card-body">
-                            <h6 class="card-title">{{ book.title }}</h6>
-                            <p class="card-text">Author: {{ book.author_name }}</p>
-                            <p class="card-text">ISBN: {{ book.isbn }}</p>
-                            <p class="card-text">Publisher: {{ book.publisher }}</p>
-                            <p class="card-text">Publication: {{ book.publication }}</p>
-                            <p class="card-text">Edition: {{ book.edition }}</p>
-                            <a href="#" class="btn btn-primary">Borrow</a>
-                        </div>
-                    </div>
-                </div>
-            {% endfor %}
-        </div>
-    </div>
-</body>
-</html>
+</section>
+{% endblock %}
