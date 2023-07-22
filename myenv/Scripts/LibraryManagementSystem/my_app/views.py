@@ -90,7 +90,8 @@ def login_user(request):
             return redirect('signup:login_user')
     else :
         return render(request, 'forms/login.html')
-    
+
+  
 def logout_user(request):
     logout(request)
     messages.error(request, "You Were Logged Out...",'base')
@@ -107,3 +108,6 @@ def featured_books(request):
     return render(request , 'forms/featured_books.html' , {
         'featured_books' : books
     })
+    
+def about_libraquest(request):
+    return render(request , 'about_libraquest.html')

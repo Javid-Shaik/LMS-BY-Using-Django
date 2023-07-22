@@ -7,25 +7,12 @@
 }
 
 
-/* .cover-image img{
-    width:75px;
-    height: 85px;
-    object-fit: cover;
-}
-
-.cover-image{
-    display: flex;
-    flex-direction: column;
-} */
-
-/* CSS for Book List */
-
-/* Table Styling */
 .books {
     width: 100%;
     border-collapse: collapse;
     margin-top: 100px;
     margin-bottom: 10px;
+    margin-right: 30px;
 }
   
 .books th,

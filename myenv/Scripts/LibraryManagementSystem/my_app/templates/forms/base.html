@@ -12,7 +12,7 @@
     <body>
         <nav class="navbar">
             <div class="content">
-                <div class="logo"><a href="#">LibraQuest</a></div>
+                <div class="logo"><a href="{% url 'signup:about_libraquest' %}">LibraQuest</a></div>
                 <ul class="menu-list">
                     <div class="icon cancel-btn">
                         <i class="fas fa-times"></i>
@@ -24,8 +24,9 @@
                                 <option value="Title">Title</option>
                                 <option value="Author">Author</option>
                                 <option value="Isbn">Isbn</option>
+                                <option value="Publisher">Publisher</option>
                             </select>
-                            <input type="text" name="search" placeholder="Search" class="search-box">
+                            <input type="text" name="search" placeholder="Search" class="search-box" required>
                             <i class="fas fa-search" onclick="book_search()"></i>
                         </div>
                     </li>
@@ -115,7 +116,7 @@
                 var searchInput = document.querySelector('input[name="search"]');
                 var searchValue = searchInput.value;
                 var url = "{% url 'book_search'%}?book_domain=" + book_domain+"&text="+ searchValue;
-                if (searchValue === "") {
+                if (searchValue.trim() === "") {
                     // If both dropdown value and search text are empty, redirect to the default book search page
                     window.location.href = "{% url 'signup:homepage' %}";
                 } else {

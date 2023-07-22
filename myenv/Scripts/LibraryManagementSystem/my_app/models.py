@@ -83,12 +83,13 @@ class Books(models.Model):
     availability = models.CharField(max_length=10,default='No')
     cover_image = models.ImageField(upload_to="book_covers/")
     book_file = models.FileField(upload_to="books/",blank=True , null=True)
+    copies_available = models.IntegerField(null=True,blank=True,default=2)
     def __str__(self):
         return self.title
 
 class Member(models.Model):
     user = models.OneToOneField(RegisterModel, on_delete=models.CASCADE)
-    address = models.CharField(max_length=100)
+    address = models.CharField(max_length=100 , blank=True , null=True)
     phone = models.CharField(max_length=15)
     borrowed_books = models.ManyToManyField(Books , through="borrowings")
     def __str__(self):

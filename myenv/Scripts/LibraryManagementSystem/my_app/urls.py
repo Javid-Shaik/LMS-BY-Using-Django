@@ -11,5 +11,6 @@ urlpatterns = [
     path("",views.homepage, name="homepage"),
     path("logout_user",views.logout_user, name="logout"),
     path('show_books', views.show_books , name='show_books'),
-    path('featured_books' , views.featured_books , name='featured_books')
+    path('featured_books' , views.featured_books , name='featured_books'),
+    path('about_libraquest'  , views.about_libraquest , name='about_libraquest')
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
