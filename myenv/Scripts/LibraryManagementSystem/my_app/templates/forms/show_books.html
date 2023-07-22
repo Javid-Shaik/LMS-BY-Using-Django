@@ -37,7 +37,7 @@
             <td>{{ book.edition }}</td>
             <td>
                 <button class="btn btn-primary borrow-button" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                    <a href="{% url 'borrow_books' book_id=book.id %}" ></a>Borrow
+                    <a href="{% url 'borrow_books' book_id=book.id %}" ><i class="fas fa-plus"></i></a>Borrow
                 </button>
             </td>
         </tr>

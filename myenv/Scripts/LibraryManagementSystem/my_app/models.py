@@ -114,7 +114,7 @@ class Borrowings(models.Model):
     due_date = models.DateField()
     return_date = models.DateField(null=True , blank=True)
     fine_amount = models.DecimalField(max_digits=8, decimal_places=2, null=True,blank=True)
-    status = models.CharField(max_length=50,choices=STATUS_CHOICES)
+    status = models.CharField(max_length=50,choices=STATUS_CHOICES,default="None")
     
     def __str__(self):
         return self.member.user.username+" "+self.book.title

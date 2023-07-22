@@ -85,8 +85,25 @@ def borrow_books(request , book_id):
     due_date = borrowed_date + timedelta(days=14)
     
     if already_borrowed :
-        message = f"The book {book.title} is already borrowed."
-        return JsonResponse({'message': message, 'success': False})
+        status = Borrowings.objects.filter(book=book , member=member, status="Borrowed").exists()
+        if status:
+            message = f"The book {book.title} is already borrowed."
+            return JsonResponse({'message': message, 'success': False})
+        
+        message = f"You have successfully borrowed {book.title}"
+        borrowing = Borrowings(
+            book=book,
+            member=member,
+            borrowed_date=borrowed_date,
+            due_date=due_date,
+            status='Borrowed'
+        )
+        borrowing.save()
+        book.copies_available -= 1
+        if book.copies_available==0 :
+            book.availability = 'No'
+        book.save()
+        return JsonResponse({'message': message, 'success': True})
     
     elif book.availability == 'No' :
         message = f"The book {book.title} is currently not available."
@@ -145,9 +162,9 @@ def return_book(request , book_id):
     user = request.user   
     book = Books.objects.get(id=book_id)
     member = Member.objects.get(user=user)
-    
+    borrowings = Borrowings.objects.filter(book=book , member=member)
     return_date = date.today()
-    for borrowing in Borrowings.objects.filter(book=book , member=member):
+    for borrowing in borrowings :
         due_date = borrowing.due_date
         
         fine = 0 
@@ -164,6 +181,8 @@ def return_book(request , book_id):
         
         book.save()
     message = f"The book {book.title} is returned sucessfully"
-    return JsonResponse({'message': message, 'success': True})
+    return render(request ,'profile/user_profile.html', {
+        'user': request.user , 'borrowings' : borrowings
+        } )
     
 
