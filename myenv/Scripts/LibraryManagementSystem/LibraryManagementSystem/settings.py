@@ -136,3 +136,6 @@ MEDIA_URL = '/media/'
 DEFFAULT_USER_IMAGE = r"C:\\Users\\user\\Environments\\myenv\\Scripts\\LibraryManagementSystem\\media\\profile\\default_user.jpg"
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
+LOGIN_URL = "/login"
+LOGIN_REDIRECT_URL = "/borrow_book"
+

@@ -39,8 +39,8 @@
                     {% else %}
                     <li>
                         <a href="{% url 'signup:login_user' %}">Sign in</a>
-                    {% endif %}
                     </li>
+                    {% endif %}
                     {% if user.is_authenticated %}
                         <div class="profile">
                             {% if user.profile_image.url %}

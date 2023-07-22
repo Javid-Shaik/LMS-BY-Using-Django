@@ -1,12 +1,12 @@
 from django.shortcuts import render , redirect , get_object_or_404
-from my_app.models import UserManager , RegisterModel , Member , Books , Borrowings
+from my_app.models import RegisterModel , Member , Books , Borrowings
 from django.contrib.auth.models import User
-from django.core.files.storage import default_storage
+
 # from django.contrib import messages
 from datetime import date, timedelta
 from django.http import JsonResponse
 from django.db.models import Q
-from my_app.views import homepage
+
 
 from django.contrib.auth.decorators import login_required
 # Create your views here.
@@ -80,6 +80,7 @@ def borrow_books(request , book_id):
     else :
         member = Member.objects.create(user=user , address = user.address , phone = user.phone )
     already_borrowed = member.borrowed_books.filter(id=book_id).exists()
+    
     borrowed_date = date.today()
     due_date = borrowed_date + timedelta(days=14)
     
@@ -87,9 +88,10 @@ def borrow_books(request , book_id):
         message = f"The book {book.title} is already borrowed."
         return JsonResponse({'message': message, 'success': False})
     
-    elif book.availability == 'No':
+    elif book.availability == 'No' :
         message = f"The book {book.title} is currently not available."
         return JsonResponse({'message': message, 'success': False})
+    
     else:
         message = f"You have successfully borrowed {book.title}"
         borrowing = Borrowings(
@@ -100,7 +102,9 @@ def borrow_books(request , book_id):
             status='Borrowed'
         )
         borrowing.save()
-        book.availability = 'No'
+        book.copies_available -= 1
+        if book.copies_available==0 :
+            book.availability = 'No'
         book.save()
         return JsonResponse({'message': message, 'success': True})
     
@@ -136,3 +140,30 @@ def learn_more(request,book_id):
     return render(request , 'books/learn_more.html', {
         'book': book
     })
+
+def return_book(request , book_id):
+    user = request.user   
+    book = Books.objects.get(id=book_id)
+    member = Member.objects.get(user=user)
+    
+    return_date = date.today()
+    for borrowing in Borrowings.objects.filter(book=book , member=member):
+        due_date = borrowing.due_date
+        
+        fine = 0 
+        if return_date > due_date:
+            fine = ((return_date-due_date).days)*5
+        
+        borrowing.status = "Returned"
+        borrowing.fine_amount = fine
+        borrowing.return_date = return_date
+        borrowing.save()
+        
+        book.copies_available +=1
+        book.availability = "Yes"
+        
+        book.save()
+    message = f"The book {book.title} is returned sucessfully"
+    return JsonResponse({'message': message, 'success': True})
+    
+
