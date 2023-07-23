@@ -163,6 +163,7 @@ def return_book(request , book_id):
     book = Books.objects.get(id=book_id)
     member = Member.objects.get(user=user)
     borrowings = Borrowings.objects.filter(book=book , member=member)
+    print(borrowings)
     return_date = date.today()
     for borrowing in borrowings :
         due_date = borrowing.due_date
@@ -181,8 +182,6 @@ def return_book(request , book_id):
         
         book.save()
     message = f"The book {book.title} is returned sucessfully"
-    return render(request ,'profile/user_profile.html', {
-        'user': request.user , 'borrowings' : borrowings
-        } )
+    return redirect('user_profile' , username=user)
     
 
