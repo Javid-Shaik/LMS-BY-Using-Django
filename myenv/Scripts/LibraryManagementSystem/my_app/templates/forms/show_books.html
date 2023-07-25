@@ -75,11 +75,15 @@
                         // Show the success message in the modal
                         $('#borrowMessageText').text(response.message);
                         $('#borrowMessageModal').modal('show');
+                        $('#close').css('background' , 'green');
+                        $('#exampleModalLabel').text('Borrowed').css('color' , 'green')
                     } else {
                         // Show the error message in the modal
-                        $('#borrowMessageText').text(response.message);
-                        $('#borrowMessageText').style.color = "red";
+                        $('#borrowMessageText').text(response.message).css('color' , '#1b1b1b');
+                        $('#borrowMessageText').css('color', '#1b1b1b');
                         $('#borrowMessageModal').modal('show');
+                        $('#close').css('background' , '#f14a4a');
+                        $('#exampleModalLabel').text('Sorry!').css('color' , 'red')
                     }
                 }
             });
