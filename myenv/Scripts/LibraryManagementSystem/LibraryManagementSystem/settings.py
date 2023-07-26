@@ -139,3 +139,13 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 LOGIN_URL = "/login"
 LOGIN_REDIRECT_URL = "/borrow_book"
 
+# settings.py
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'  # Example: 'smtp.gmail.com'
+EMAIL_PORT = 587  # Example: 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'shaikjavidbasha528@example.com'  # Your email address
+EMAIL_HOST_PASSWORD = 'javidk528'  # Your email password
+
+

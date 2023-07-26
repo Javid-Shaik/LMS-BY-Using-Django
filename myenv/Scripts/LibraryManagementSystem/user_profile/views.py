@@ -88,7 +88,7 @@ def borrow_books(request , book_id):
         status = Borrowings.objects.filter(book=book , member=member, status="Borrowed").exists()
         if status:
             message = f"The book {book.title} is already borrowed."
-            return JsonResponse({'message': message, 'success': False})
+            return JsonResponse({'message': message, 'success': False , 'status':'borrowed'})
         
         message = f"You have successfully borrowed {book.title}"
         borrowing = Borrowings(
@@ -103,11 +103,11 @@ def borrow_books(request , book_id):
         if book.copies_available==0 :
             book.availability = 'No'
         book.save()
-        return JsonResponse({'message': message, 'success': True})
+        return JsonResponse({'message': message, 'success': True , 'status':'now_borrowed'})
     
     elif book.availability == 'No' :
         message = f"The book {book.title} is currently not available."
-        return JsonResponse({'message': message, 'success': False})
+        return JsonResponse({'message': message, 'success': False , 'status':'unavailable'})
     
     else:
         message = f"You have successfully borrowed {book.title}"
@@ -123,7 +123,7 @@ def borrow_books(request , book_id):
         if book.copies_available==0 :
             book.availability = 'No'
         book.save()
-        return JsonResponse({'message': message, 'success': True})
+        return JsonResponse({'message': message, 'success': True , 'status':'now_borrowed'})
     
 #Fuctionality for searching the book
 

@@ -1,5 +1,24 @@
 <!-- Modal -->
 {% load static %}
+<style>
+    #close {
+        background-color: #5a4c50;
+        color: #ccc;
+    }
+    #close:hover{
+        background-color: #2b2829;
+        color:#ffffff;
+    }
+    #notify {
+        background-color: #ffc107;
+        hoverColor: #cca106;
+        color: #1b1b1b;
+    }
+    #notify:hover{
+        background: #cca106;
+        color: #fff;
+    }
+</style>
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
@@ -11,7 +30,8 @@
                 <p id="borrowMessageText" style="color:#1b1b1b"></p>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary btn-sm mt-5px" id="close" data-bs-dismiss="modal" style="background-color:#a6a6a6">Close</button>
+                <button type="button" class="btn btn-sm mt-5px me-auto" id="notify">Notify</button>
+                <button type="button" class="btn btn-secondary btn-sm mt-5px" id="close" data-bs-dismiss="modal">Close</button>
             </div>
         </div>
     </div>

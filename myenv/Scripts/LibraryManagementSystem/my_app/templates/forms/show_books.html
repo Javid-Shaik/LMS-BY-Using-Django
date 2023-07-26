@@ -58,14 +58,16 @@
                 success: function(response) {
                     var message = response.message;
                     var success = response.success;
-                    showBorrowNotification(message, success);
+                    var status = response.status;
+                    console.log(status);
+                    showBorrowNotification(message, success , status);
                 },
                 error: function(xhr, textStatus, errorThrown) {
                     console.log(xhr.responseText);
                 }
             });
         });
-        function showBorrowNotification(message , success) {
+        function showBorrowNotification(message , success , status) {
             // Intercept the AJAX response when the user borrows a book
             $(document).ajaxComplete(function (event, xhr, settings) {
                 // Check if the response contains the message and success status
@@ -75,15 +77,22 @@
                         // Show the success message in the modal
                         $('#borrowMessageText').text(response.message);
                         $('#borrowMessageModal').modal('show');
-                        $('#close').css('background' , 'green');
-                        $('#exampleModalLabel').text('Borrowed').css('color' , 'green')
+                        $('#exampleModalLabel').text('Borrowed').css('color' , 'green');
+                        $('#notify').css('display', 'none');
                     } else {
                         // Show the error message in the modal
                         $('#borrowMessageText').text(response.message).css('color' , '#1b1b1b');
                         $('#borrowMessageText').css('color', '#1b1b1b');
                         $('#borrowMessageModal').modal('show');
-                        $('#close').css('background' , '#f14a4a');
-                        $('#exampleModalLabel').text('Sorry!').css('color' , 'red')
+                        // if the book is unavailable then display both notify button and close button
+                        if (response.status === 'unavailable') {
+                            $('#notify').css('display', 'block');
+                            $('#exampleModalLabel').text('Unavailable!').css('color' , '#1b1b1b');
+                        // if the use has Already Borrowed the book then display only the close button
+                        } else {
+                            $('#exampleModalLabel').text('Already Borrowed!').css('color' , 'red');
+                            $('#notify').css('display', 'none'); // Hide the Notify button
+                        }
                     }
                 }
             });
