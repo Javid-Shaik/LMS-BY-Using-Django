@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 
+from dotenv import load_dotenv
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -143,11 +144,13 @@ LOGIN_REDIRECT_URL = "/borrow_book"
 
 # settings.py
 
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = config('EMAIL_HOST')  # Example: 'smtp.gmail.com'
-EMAIL_PORT = config('EMAIL_PORT' , default=587)  # Example: 587
+load_dotenv()
+
+EMAIL_HOST = os.environ.get('EMAIL_HOST')
+EMAIL_PORT = os.environ.get('EMAIL_PORT')
+EMAIL_HOST_USER = os.environ.get('EMAIL_USERNAME')
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_PASSWORD')
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER =   config('EMAIL_HOST_USER')# Your email address
-EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')  # Your email password
+
 
 
