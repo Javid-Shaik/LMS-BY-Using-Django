@@ -74,7 +74,7 @@ def borrow_books(request , book_id):
     user = request.user   
     book = Books.objects.get(id=book_id)
     user_exists_in_member_model = Member.objects.filter(user__username=user.username).exists()
-    
+    print(book.copies_available)
     if user_exists_in_member_model:
         member = Member.objects.get(user=user)
     else :
@@ -162,21 +162,25 @@ def return_book(request , book_id):
     user = request.user   
     book = Books.objects.get(id=book_id)
     member = Member.objects.get(user=user)
-    borrowings = Borrowings.objects.filter(book=book , member=member)
+    borrowings = Borrowings.objects.filter(book=book.id , member=member)
+    print(borrowings)
     return_date = date.today()
-    for borrowing in borrowings :
+    if borrowings.exists():
+        borrowing = borrowings.first()
         due_date = borrowing.due_date
-        
+    
         fine = 0 
         if return_date > due_date:
             fine = ((return_date-due_date).days)*5
-        
+    
         borrowing.status = "Returned"
         borrowing.fine_amount = fine
         borrowing.return_date = return_date
         borrowing.save()
+        borrowing.delete()
         
-        book.copies_available +=1
+        print(book.copies_available, book.title , member.user.username)
+        book.copies_available = book.copies_available+1
         book.availability = "Yes"
         
         book.save()
