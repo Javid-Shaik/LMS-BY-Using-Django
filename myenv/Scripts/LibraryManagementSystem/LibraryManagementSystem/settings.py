@@ -36,6 +36,7 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     'my_app',
     'user_profile',
+    'sslserver',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -143,7 +144,7 @@ LOGIN_REDIRECT_URL = "/borrow_book"
 
 #Email redentials setting
 
-EMAIL_BACKEND = 'django.core.mail.backends.emtp.EmailBackend'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST= 'smtp.gmail.com'
 EMAIL_PORT=587
 EMAIL_HOST_USER= 'shaikjavidbasha528@gmail.com'

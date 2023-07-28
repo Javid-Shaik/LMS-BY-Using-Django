@@ -53,6 +53,7 @@ class RegisterModel(AbstractUser,PermissionsMixin):
     profile_image = models.ImageField(upload_to="profile/", default=DEFAULT_USER_IMAGE ,null=True, blank=True)
     phone = models.CharField(max_length=20)
     address = models.TextField(max_length=200 ,blank=True, null=True)
+    token = models.TextField(max_length=300 , blank=True, null = True)
     
     is_staff = models.BooleanField(default=False)
     is_superuser = models.BooleanField(default=False)

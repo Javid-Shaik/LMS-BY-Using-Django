@@ -12,5 +12,6 @@ urlpatterns = [
     path("logout_user",views.logout_user, name="logout"),
     path('show_books', views.show_books , name='show_books'),
     path('featured_books' , views.featured_books , name='featured_books'),
-    path('about_libraquest'  , views.about_libraquest , name='about_libraquest')
+    path('about_libraquest'  , views.about_libraquest , name='about_libraquest'),
+    path('confirm/<str:uidb64>/<str:token>/', views.confirm_email, name='confirm_email'),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

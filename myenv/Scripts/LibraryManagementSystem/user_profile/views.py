@@ -200,7 +200,7 @@ def notify_book_available(request, book_id):
     if book.availability:
         # Book is already available, send an immediate notification
         send_book_available_notification.delay(book.title, user.email)
-        return JsonResponse({'message': 'You will receive an email when the book becomes available.', 'success': True })
+        return JsonResponse({'message': f'You will receive an email when the book {book.title} becomes available.', 'success': True })
     else:
         # Book is not available, show the Notify button
         return JsonResponse({'message': 'The book is currently not available.', 'success': False })
