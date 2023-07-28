@@ -60,11 +60,12 @@ def register(request):
 
 def details(request):
     users = RegisterModel.objects.all()
+    books = Books.objects.all()
     # if request.session['users']:
     #     pass
     print(users)
     return render(request,"forms/details.html",{
-        "users":users
+        "users":users , 'books':books
     })
     
 def homepage(request):

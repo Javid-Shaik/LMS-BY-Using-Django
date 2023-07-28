@@ -97,6 +97,24 @@
                 }
             });
         }
+        /* $('#notify').click(function(e) {
+            e.preventDefault();
+            var url = ""
+            $.ajax({
+                url: url,
+                type: 'GET',
+                success: function(response) {
+                    var message = response.message;
+                    var success = response.success;
+                    var book = response.book;
+                    console.log(status);
+                    showBorrowNotification(message, success , book);
+                },
+                error: function(xhr, textStatus, errorThrown) {
+                    console.log(xhr.responseText);
+                }
+            });
+        }); */
     });
 </script>
 {% endblock %}

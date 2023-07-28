@@ -6,7 +6,9 @@ from django.contrib.auth.models import User
 from datetime import date, timedelta
 from django.http import JsonResponse
 from django.db.models import Q
+from django.core.mail import send_mail
 
+from .tasks import send_book_available_notification
 
 from django.contrib.auth.decorators import login_required
 # Create your views here.
@@ -187,4 +189,18 @@ def return_book(request , book_id):
     message = f"The book {book.title} is returned sucessfully"
     return redirect('user_profile' , username=user.username)
     
+#Notification sending method
 
+@login_required
+def notify_book_available(request, book_id):
+    print(book_id)
+    user = request.user
+    book = Books.objects.get(id=10)
+    print(book)
+    if book.availability:
+        # Book is already available, send an immediate notification
+        send_book_available_notification.delay(book.title, user.email)
+        return JsonResponse({'message': 'You will receive an email when the book becomes available.', 'success': True })
+    else:
+        # Book is not available, show the Notify button
+        return JsonResponse({'message': 'The book is currently not available.', 'success': False })

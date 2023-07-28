@@ -13,7 +13,6 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 
-# from dotenv import load_dotenv
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -142,15 +141,21 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 LOGIN_URL = "/login"
 LOGIN_REDIRECT_URL = "/borrow_book"
 
-# settings.py
+#Email redentials setting
 
-# load_dotenv()
+EMAIL_BACKEND = 'django.core.mail.backends.emtp.EmailBackend'
+EMAIL_HOST= 'smtp.gmail.com'
+EMAIL_PORT=587
+EMAIL_HOST_USER= 'shaikjavidbasha528@gmail.com'
+EMAIL_HOST_PASSWORD= 'ptmcfztgaqwkjblv'
+EMAIL_USE_TLS= True
 
-# EMAIL_HOST = os.environ.get('EMAIL_HOST')
-# EMAIL_PORT = os.environ.get('EMAIL_PORT')
-# EMAIL_HOST_USER = os.environ.get('EMAIL_USERNAME')
-# EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_PASSWORD')
-# EMAIL_USE_TLS = True
+
+
+# Celery settings this is for sending mails asynchoronusly
+CELERY_BROKER_URL = 'redis://localhost:6379/0'
+CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
+
 
 
 

@@ -16,6 +16,14 @@
             <hr>
             {% endfor %}
         </ul>
+        <ul>
+            {% for book in books %}
+            <li>{{ book.id }}</li>
+            <li>{{ book.title }}</li>
+            <hr>
+            <hr>
+            {% endfor %}
+        </ul>
         <a href="{% url 'signup:register'%}">Register</a>
     </body>
 </html>
