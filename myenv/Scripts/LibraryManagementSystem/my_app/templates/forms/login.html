@@ -32,10 +32,10 @@
                     <input type="submit" value="Continue to Read"/>
                 </div>
             </form>
+            <div class="link"><a href="{% url 'signup:forgot_password' %}">Forgot Password</a></div>
             <div class="link">Not yet signed up? <a href="{% url 'signup:register' %}">Signup now</a></div>
         </section>
     </div>
 </div>
-    {% comment %} <p>{% lorem 100 b random %} {% endcomment %}
     <script src="{% static 'js/pass-show-hide.js' %}"></script>
 {% endblock %}

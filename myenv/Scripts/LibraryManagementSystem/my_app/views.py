@@ -177,3 +177,6 @@ def confirm_email(request, uidb64, token):
 
     return redirect('signup:login_user')
 
+
+def forgot_password(request):
+    return render(request , "forms/forgot_password.html")

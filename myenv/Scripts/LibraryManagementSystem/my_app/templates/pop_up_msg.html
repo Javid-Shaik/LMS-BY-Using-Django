@@ -64,13 +64,11 @@
                         // If successful, show the success message in the modal
                         $('#borrowMessageText').text(data.message);
                         $('#borrowMessageModal').modal('show');
-                        $('#close').css('background', 'green');
                         $('#exampleModalLabel').text('Notification Sent').css('color', 'green');
                     } else {
                         // If not successful, show the error message in the modal
                         $('#borrowMessageText').text(data.message).css('color', '#1b1b1b');
                         $('#borrowMessageModal').modal('show');
-                        $('#close').css('background', '#f14a4a');
                         $('#exampleModalLabel').text('Sorry!').css('color', 'red');
                     }
                 },

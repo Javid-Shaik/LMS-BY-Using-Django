@@ -41,6 +41,10 @@
 }
 
 /* Cover Image Styling */
+
+.cover-image {
+  position: relative;
+}
 .cover-image img {
   width: 75px;
   height: 100px;
