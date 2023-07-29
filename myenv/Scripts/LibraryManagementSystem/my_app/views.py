@@ -71,8 +71,11 @@ def register(request):
             confirm_url = f'http://{get_current_site(request)}/confirm/{uidb64}/{token}/'
 
             # Send the confirmation email
+            render(request , "forms/email_confirmation.html"  , {
+                'confirm_url':confirm_url
+            })
             subject = 'Confirm Your Email'
-            message = render_to_string('forms/email_confirmation.html', {'confirm_url': confirm_url})
+            message = f"Dear {user.first_name} {user.last_name},\nPlease click the below link to verify your email.\n{confirm_url}"
             from_email = settings.DEFAULT_FROM_EMAIL
             recipient_list = [user.email]
             send_mail(subject, message, from_email, recipient_list)
@@ -80,6 +83,7 @@ def register(request):
             messages.success(request, "Registration successful! Please check your email for the confirmation link.")
             return redirect('signup:login_user')
         else :
+            user.delete()
             messages.error(request , "Enter valid email address")
             redirect("signup:register") 
     
