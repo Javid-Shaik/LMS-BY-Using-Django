@@ -48,7 +48,7 @@ class RegisterModel(AbstractUser,PermissionsMixin):
     first_name = models.CharField(max_length=30)
     last_name = models.CharField(max_length=30)
     username = models.CharField(max_length=20, unique=True)
-    email = models.EmailField(max_length=50)
+    email = models.EmailField(max_length=50, unique=True)
     role = models.CharField(max_length=20)
     profile_image = models.ImageField(upload_to="profile/", default=DEFAULT_USER_IMAGE ,null=True, blank=True)
     phone = models.CharField(max_length=20)
@@ -98,9 +98,10 @@ class Member(models.Model):
     address = models.CharField(max_length=100 , blank=True , null=True)
     phone = models.CharField(max_length=15)
     borrowed_books = models.ManyToManyField(Books , through="borrowings")
+    
     def __str__(self):
         return self.user.username
-
+    
     class Meta:
         verbose_name_plural = "Members"
 

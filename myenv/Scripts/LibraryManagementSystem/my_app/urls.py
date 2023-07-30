@@ -15,4 +15,5 @@ urlpatterns = [
     path('about_libraquest'  , views.about_libraquest , name='about_libraquest'),
     path('confirm/<str:uidb64>/<str:token>/', views.confirm_email, name='confirm_email'),
     path('forgot_password' , views.forgot_password , name='forgot_password'),
+    path('reset_password' , views.reset_password , name='reset_password'),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

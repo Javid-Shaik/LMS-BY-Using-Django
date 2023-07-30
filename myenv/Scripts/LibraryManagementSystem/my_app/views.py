@@ -14,7 +14,7 @@ from django.urls import reverse
 from django.core.mail import send_mail
 from django.contrib.auth.tokens import default_token_generator
 from django.contrib.sites.shortcuts import get_current_site
-from django.template.loader import render_to_string
+
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.utils.encoding import force_bytes, force_str
 
@@ -71,9 +71,9 @@ def register(request):
             confirm_url = f'http://{get_current_site(request)}/confirm/{uidb64}/{token}/'
 
             # Send the confirmation email
-            render(request , "forms/email_confirmation.html"  , {
-                'confirm_url':confirm_url
-            })
+            # render(request , "forms/email_confirmation.html"  , {
+            #     'confirm_url':confirm_url
+            # })
             subject = 'Confirm Your Email'
             message = f"Dear {user.first_name} {user.last_name},\nPlease click the below link to verify your email.\n{confirm_url}"
             from_email = settings.DEFAULT_FROM_EMAIL
@@ -180,3 +180,36 @@ def confirm_email(request, uidb64, token):
 
 def forgot_password(request):
     return render(request , "forms/forgot_password.html")
+
+def reset_password(request):
+    if request.method == "POST":
+        email = request.POST.get('email')
+        if is_valid_email(email):
+            try :
+                user = RegisterModel.objects.get(email=email)
+                reset_url = generate_reset_link(request, user)
+                subject = 'Password Reset'
+                message = f"Dear {user.first_name.capitalize()} {user.last_name.capitalize()},\nPlease click the below link to reset the password.\n{reset_url}"
+                from_email = settings.DEFAULT_FROM_EMAIL
+                recipient_list = [user.email]
+                send_mail(subject, message, from_email, recipient_list)
+                messages.success(request, "Please check your mail to rest the password")
+            
+            except RegisterModel.DoesNotExist :
+                pass
+    return redirect('forgot_password')
+
+def generate_reset_link(request , user):
+    token = default_token_generator.make_token(user)
+
+    # Encode the user's primary key in a URL-safe format
+    uid = urlsafe_base64_encode(force_bytes(user.pk))
+
+    # Get the domain of the current site
+    domain = get_current_site(request).domain
+
+    # Create the password reset link URL
+    reset_link = reverse('reset_password', kwargs={'uidb64': uid, 'token': token})
+    reset_url = f'http://{domain}{reset_link}'
+
+    return reset_url
