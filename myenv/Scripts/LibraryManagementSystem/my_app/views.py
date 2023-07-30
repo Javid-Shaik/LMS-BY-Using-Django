@@ -19,6 +19,7 @@ from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.utils.encoding import force_bytes, force_str
 
 from django.core.exceptions import ObjectDoesNotExist
+from django.contrib.auth.hashers import make_password
 
 def register(request):
     if request.method == 'POST':
@@ -159,12 +160,6 @@ def is_valid_email(email):
     pattern = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
     return re.match(pattern, email) is not None
 
-# def send_confirmation_email(user):
-#     confirmation_link = reverse('confirm_email', args=[user.confirmation_token])
-#     subject = 'Confirm Your Email'
-#     message = f'Click the following link to confirm your email: {settings.BASE_URL}{confirmation_link}'
-#     send_mail(subject, message, settings.EMAIL_FROM, [user.email])
-
 
 def confirm_email(request, uidb64, token):
     try:
@@ -188,10 +183,9 @@ def forgot_password(request):
     return render(request , "forms/forgot_password.html")
 
 def reset_password(request):
-    
     if request.method == "POST":
         email = request.POST.get('email')
-        if is_valid_email(email):
+        if email and is_valid_email(email):
             try:
                 user = RegisterModel.objects.get(email=email)
                 reset_url = generate_reset_link(request, user)
@@ -201,11 +195,13 @@ def reset_password(request):
                 recipient_list = [user.email]
                 send_mail(subject, message, from_email, recipient_list)
                 messages.success(request, "Please check your email to reset the password.")
+                return redirect('signup:forgot_password')
             
             except ObjectDoesNotExist:
                 messages.error(request, "The provided email does not exist in our records.")
-    
-    return redirect('signup:forgot_password')
+        else :
+            messages.error(request, "Invalid Email")
+    return redirect('signup:login_user')
 
 def generate_reset_link(request , user):
     token = default_token_generator.make_token(user)
@@ -219,7 +215,6 @@ def generate_reset_link(request , user):
     # Create the password reset link URL
     reset_link = reverse('signup:reset_password_confirm', kwargs={'uidb64': uid, 'token': token})
     reset_url = f'http://{domain}{reset_link}'
-    print(reset_url)
     return reset_url
 
 def reset_password_confirm(request , uidb64 , token):
@@ -233,16 +228,17 @@ def reset_password_confirm(request , uidb64 , token):
                 password = request.POST.get('password')
                 confirm_password = request.POST.get('confirm_password')
                 
-                if password != confirm_password:
-                    messages.error(request, "Passwords do not match.")
-                    return render(request, 'reset_password_confirm.html', {'uidb64': uidb64, 'token': token})
+                if password and confirm_password :
+                    if password != confirm_password:
+                        messages.error(request, "Passwords do not match.")
+                        return render(request, 'reset_password_confirm.html', {'uidb64': uidb64, 'token': token})
 
-                # Set the new password and save the user
-                user.password = make_password(password)
-                user.save()
-                
-                messages.success(request, "Password has been reset successfully. You can now log in with your new password.")
-                return redirect('login')  # Replace 'login' with the name of your login view
+                    # Set the new password and save the user
+                    user.password = make_password(password)
+                    user.save()
+                    
+                    messages.success(request, "Password has been reset successfully. You can now log in with your new password.")
+                    return redirect('signup:login_user')  # Replace 'login' with the name of your login view
                 
             return render(request, 'forms/reset_password_confirm.html', {'uidb64': uidb64, 'token': token})
             

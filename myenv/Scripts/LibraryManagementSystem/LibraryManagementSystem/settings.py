@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
-
+from django.contrib import messages
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -75,6 +75,10 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'LibraryManagementSystem.wsgi.application'
 
+MESSAGE_TAGS = {
+    messages.SUCCESS: 'success',  # This sets the class name for success messages
+    messages.ERROR: 'error', #This sets the class name for error messages
+}
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
