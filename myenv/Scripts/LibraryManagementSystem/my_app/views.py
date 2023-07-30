@@ -18,6 +18,8 @@ from django.contrib.sites.shortcuts import get_current_site
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.utils.encoding import force_bytes, force_str
 
+from django.core.exceptions import ObjectDoesNotExist
+
 def register(request):
     if request.method == 'POST':
         fname = request.POST.get('fname')
@@ -41,6 +43,10 @@ def register(request):
             if RegisterModel.objects.filter(username=username).exists():
                 messages.error(request ,  "Username is already taken",'signup')
                 return redirect("signup:register")        
+            
+            elif  RegisterModel.objects.filter(email=email):
+                messages.error(request ,  "Username is already taken",'signup')
+                return redirect("signup:register")
             
             user = RegisterModel(
                     first_name = fname,
@@ -185,7 +191,7 @@ def reset_password(request):
     if request.method == "POST":
         email = request.POST.get('email')
         if is_valid_email(email):
-            try :
+            try:
                 user = RegisterModel.objects.get(email=email)
                 reset_url = generate_reset_link(request, user)
                 subject = 'Password Reset'
@@ -193,10 +199,11 @@ def reset_password(request):
                 from_email = settings.DEFAULT_FROM_EMAIL
                 recipient_list = [user.email]
                 send_mail(subject, message, from_email, recipient_list)
-                messages.success(request, "Please check your mail to rest the password")
+                messages.success(request, "Please check your email to reset the password.")
             
-            except RegisterModel.DoesNotExist :
-                pass
+            except ObjectDoesNotExist:
+                messages.error(request, "The provided email does not exist in our records.")
+    
     return redirect('forgot_password')
 
 def generate_reset_link(request , user):
@@ -209,7 +216,36 @@ def generate_reset_link(request , user):
     domain = get_current_site(request).domain
 
     # Create the password reset link URL
-    reset_link = reverse('reset_password', kwargs={'uidb64': uid, 'token': token})
+    reset_link = reverse('signup:reset_password_confirm', kwargs={'uidb64': uid, 'token': token})
     reset_url = f'http://{domain}{reset_link}'
-
+    print(reset_url)
     return reset_url
+
+def reset_password_confirm(request , uidb64 , token):
+    try :
+        uid = urlsafe_base64_decode(uidb64).decode('utf-8')
+        user = RegisterModel.objects.get(pk=uid) 
+        
+        if default_token_generator.check_token(user ,token):
+            
+            if request.method == 'POST':
+                password = request.POST.get('password')
+                confirm_password = request.POST.get('confirm_password')
+                
+                if password != confirm_password:
+                    messages.error(request, "Passwords do not match.")
+                    return render(request, 'reset_password_confirm.html', {'uidb64': uidb64, 'token': token})
+
+                # Set the new password and save the user
+                user.password = make_password(password)
+                user.save()
+                
+                messages.success(request, "Password has been reset successfully. You can now log in with your new password.")
+                return redirect('login')  # Replace 'login' with the name of your login view
+                
+            return render(request, 'reset_password_confirm.html', {'uidb64': uidb64, 'token': token})
+            
+    except User.DoesNotExist:
+        # If the user does not exist, display an error message
+        messages.error(request, "Invalid password reset link.")
+        return redirect('signup:login_user')
