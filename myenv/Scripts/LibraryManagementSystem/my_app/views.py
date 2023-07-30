@@ -188,6 +188,7 @@ def forgot_password(request):
     return render(request , "forms/forgot_password.html")
 
 def reset_password(request):
+    
     if request.method == "POST":
         email = request.POST.get('email')
         if is_valid_email(email):
@@ -204,7 +205,7 @@ def reset_password(request):
             except ObjectDoesNotExist:
                 messages.error(request, "The provided email does not exist in our records.")
     
-    return redirect('forgot_password')
+    return redirect('signup:forgot_password')
 
 def generate_reset_link(request , user):
     token = default_token_generator.make_token(user)
@@ -243,9 +244,9 @@ def reset_password_confirm(request , uidb64 , token):
                 messages.success(request, "Password has been reset successfully. You can now log in with your new password.")
                 return redirect('login')  # Replace 'login' with the name of your login view
                 
-            return render(request, 'reset_password_confirm.html', {'uidb64': uidb64, 'token': token})
+            return render(request, 'forms/reset_password_confirm.html', {'uidb64': uidb64, 'token': token})
             
-    except User.DoesNotExist:
+    except RegisterModel.DoesNotExist:
         # If the user does not exist, display an error message
         messages.error(request, "Invalid password reset link.")
         return redirect('signup:login_user')
