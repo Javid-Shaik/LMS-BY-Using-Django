@@ -13,7 +13,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 from django.contrib import messages
-
+from django.utils import timezone
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -160,6 +160,18 @@ EMAIL_USE_TLS= True
 # Celery settings this is for sending mails asynchoronusly
 CELERY_BROKER_URL = 'redis://localhost:6379/0'
 CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
+
+
+CELERY_BEAT_SCHEDULE = {
+    'send-overdue-reminders': {
+        'task': 'my_app.tasks.send_overdue_reminders',
+        'schedule': timezone.timedelta(days=1),  # Run daily
+    },
+    'send-upcoming-due-date-notifications': {
+        'task': 'myapp.tasks.send_upcoming_due_date_notifications',
+        'schedule': timezone.timedelta(days=1),  # Run daily
+    },
+}
 
 
 

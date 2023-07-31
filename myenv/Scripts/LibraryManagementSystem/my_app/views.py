@@ -1,3 +1,5 @@
+from datetime import date, datetime
+from django.utils import timezone
 from django.shortcuts import render , redirect
 # Create your views here.
 from my_app.models import RegisterModel , Books , Member , Borrowings
@@ -101,7 +103,24 @@ def details(request):
     books = Books.objects.all()
     # if request.session['users']:
     #     pass
-    print(users)
+    overdue_books = Borrowings.objects.filter(due_date__lt=timezone.now(), status='Overdue')
+    print(overdue_books)
+    for book in overdue_books:
+        subject = f"Reminder: Return Overdue Book - {book.book.title}"
+        message = f"Dear {book.member.user.username},\n\nThis is a reminder to return the book '{book.book.title}' as soon as possible. It is currently overdue.\n\nThank you."
+        print(subject)
+        print(message)
+        # from_email = settings.DEFAULT_FROM_EMAIL
+        # recipient_list = [book.member.user.email]
+
+        # send_mail(subject, message, from_email, recipient_list, fail_silently=True)
+    upcoming_books = Borrowings.objects.filter(due_date__lt=timezone.now()+timezone.timedelta(days=3) , status='Borrowed')
+    for book in upcoming_books:
+        subject = f"Upcoming Due Date: {book.book.title}"
+        message = f"Dear {book.member.user.username},\n\nThis is a reminder that the book '{book.book.title}' is due in {book.due_date - date.today()} days.\n\nThank you."
+        print(subject)
+        print(message)
+    # print(users)
     return render(request,"forms/details.html",{
         "users":users , 'books':books
     })

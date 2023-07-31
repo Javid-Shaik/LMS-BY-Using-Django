@@ -88,7 +88,7 @@ class Books(models.Model):
     cover_image = models.ImageField(upload_to="book_covers/")
     book_file = models.FileField(upload_to="books/",blank=True , null=True)
     copies_available = models.IntegerField(null=True,blank=True,default=2)
-    description = models.TextField(max_length=2000 , null=True)
+    description = models.TextField(max_length=2000 , null=True , blank=True)
     
     def __str__(self):
         return self.title
