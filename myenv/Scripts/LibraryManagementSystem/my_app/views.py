@@ -231,8 +231,7 @@ def reset_password_confirm(request , uidb64 , token):
                 if password and confirm_password :
                     if password != confirm_password:
                         messages.error(request, "Passwords do not match.")
-                        return render(request, 'reset_password_confirm.html', {'uidb64': uidb64, 'token': token})
-
+                        return render(request, 'forms/reset_password_confirm.html', {'uidb64': uidb64, 'token': token})
                     # Set the new password and save the user
                     user.password = make_password(password)
                     user.save()
