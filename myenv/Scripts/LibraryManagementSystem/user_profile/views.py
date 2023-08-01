@@ -18,11 +18,15 @@ from django.contrib.auth.decorators import login_required
 def user_profile(request , username ):
     try :
         member = Member.objects.get(user__username=username)
+        borrowings = member.borrowings_set.all()
     except Member.DoesNotExist:
         # If Member object doesn't exist, create a new one
-        user = RegisterModel.objects.get(username=username)
-        member = Member.objects.create(user=user, address=user.address ,phone=user.phone)
-    borrowings = member.borrowings_set.all()
+        
+        # user = RegisterModel.objects.get(username=username)
+        borrowings = None
+        # member = Member.objects.create(user=user, address=user.address ,phone=user.phone)
+        
+
     
     return render(request, 'profile/user_profile.html', {
         'user': request.user , 'borrowings' : borrowings
@@ -77,12 +81,14 @@ def borrow_books(request , book_id):
     book = Books.objects.get(id=book_id)
     user_exists_in_member_model = Member.objects.filter(user__username=user.username).exists()
     print(book.copies_available)
+    already_borrowed = None
+    
     if user_exists_in_member_model:
         member = Member.objects.get(user=user)
+        already_borrowed = member.borrowed_books.filter(id=book_id).exists()
     else :
-        render(request , "profile/subcribe.html")
-        member = Member.objects.create(user=user , address = user.address , phone = user.phone )
-    already_borrowed = member.borrowed_books.filter(id=book_id).exists()
+        return JsonResponse({'message': "Please subscribe to borrow the book", 'success': False , 'status':'non_subscriber'})
+        # member = Member.objects.create(user=user , address = user.address , phone = user.phone )
     
     borrowed_date = date.today()
     due_date = borrowed_date + timedelta(days=14)
@@ -91,7 +97,7 @@ def borrow_books(request , book_id):
         status = Borrowings.objects.filter(book=book , member=member, status="Borrowed").exists()
         if status:
             message = f"The book {book.title} is already borrowed."
-            return JsonResponse({'message': message, 'success': False , 'status':'borrowed' , 'book':book})
+            return JsonResponse({'message': message, 'success': False , 'status':'borrowed'})
         
         message = f"You have successfully borrowed {book.title}"
         borrowing = Borrowings(
@@ -106,11 +112,11 @@ def borrow_books(request , book_id):
         if book.copies_available==0 :
             book.availability = 'No'
         book.save()
-        return JsonResponse({'message': message, 'success': True , 'status':'now_borrowed' , 'book':book})
+        return JsonResponse({'message': message, 'success': True , 'status':'now_borrowed'})
     
     elif book.availability == 'No' :
         message = f"The book {book.title} is currently not available."
-        return JsonResponse({'message': message, 'success': False , 'status':'unavailable' , 'book':book})
+        return JsonResponse({'message': message, 'success': False , 'status':'unavailable'})
     
     else:
         message = f"You have successfully borrowed {book.title}"
@@ -126,7 +132,7 @@ def borrow_books(request , book_id):
         if book.copies_available==0 :
             book.availability = 'No'
         book.save()
-        return JsonResponse({'message': message, 'success': True , 'status':'now_borrowed' , 'book':book})
+        return JsonResponse({'message': message, 'success': True , 'status':'now_borrowed' })
     
 #Fuctionality for searching the book
 
@@ -201,7 +207,20 @@ def notify_book_available(request, book_id):
     if book.availability:
         # Book is already available, send an immediate notification
         send_book_available_notification.delay(book.title, user.email)
+        print(user.email)
         return JsonResponse({'message': f'You will receive an email when the book {book.title} becomes available.', 'success': True })
     else:
         # Book is not available, show the Notify button
         return JsonResponse({'message': 'The book is currently not available.', 'success': False })
+    
+def subscribe(request , username):
+    return render(request , "profile/subscribe.html" , {
+        'username':username
+    })
+    
+def subscription(request , username):
+    user = get_object_or_404(RegisterModel, username=username)
+    member = Member.objects.create(user=user, address=user.address ,phone=user.phone)
+    return redirect('subscribe' , username=username)
+    
+    

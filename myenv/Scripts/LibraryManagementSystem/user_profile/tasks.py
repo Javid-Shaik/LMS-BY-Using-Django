@@ -11,6 +11,7 @@ def send_book_available_notification(book_title, user_email):
     subject = 'Book Available Notification'
     message = f'The book "{book_title}" is now available in our library.'
     from_email = settings.DEFAULT_FROM_EMAIL
+    print(from_email)
     recipient_list = [user_email]
 
     send_mail(subject, message, from_email, recipient_list)
@@ -25,7 +26,7 @@ def send_overdue_reminders():
         message = f"Dear {book.member.user.username},\n\nThis is a reminder to return the book '{book.book.title}' as soon as possible. It is currently overdue.\n\nThank you."
         from_email = settings.DEFAULT_FROM_EMAIL
         recipient_list = [book.member.user.email]
-
+        print(subject , message , recipient_list)
         send_mail(subject, message, from_email, recipient_list, fail_silently=True)
 
 @shared_task      
@@ -38,6 +39,6 @@ def send_upcoming_due_date_notifications():
         message = f"Dear {book.member.user.username},\n\nThis is a reminder that the book '{book.book.title}' is due in {book.due_date - timezone.now()} days.\n\nThank you."
         from_email = settings.DEFAULT_FROM_EMAIL
         recipient_list = [book.borrower.email]
-
+        print(subject , message , recipient_list)
         send_mail(subject, message, from_email, recipient_list, fail_silently=True)
     

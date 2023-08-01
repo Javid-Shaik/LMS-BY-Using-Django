@@ -91,15 +91,15 @@
                     var message = response.message;
                     var success = response.success;
                     var status = response.status;
-                    var book = response.book;
-                    showBorrowNotification(message, success , status , book);
+                    // var book = response.book;
+                    showBorrowNotification(message, success , status);
                 },
                 error: function(xhr, textStatus, errorThrown) {
                     console.log(xhr.responseText);
                 }
             });
         });
-        function showBorrowNotification(message , success , status , book) {
+        function showBorrowNotification(message , success , status) {
             // Intercept the AJAX response when the user borrows a book
             $(document).ajaxComplete(function (event, xhr, settings) {
                 // Check if the response contains the message and success status
@@ -115,9 +115,15 @@
                         $('#notify').css('display', 'none');
                     } else {
                         // Show the error message in the modal
-                        $('#borrowMessageText').text(response.message).css('color' , '#1b1b1b');
-                        $('#borrowMessageText').css('color', '#1b1b1b');
-                        $('#borrowMessageModal').modal('show');
+                        if (response.status === 'non_subscriber') {
+                            const username = "{{ user.username }}"; 
+                            const subscribeUrl = `/profile/subscribe/${username}/`;
+                            window.location.href = subscribeUrl;
+                        } else {
+                            $('#borrowMessageText').text(response.message).css('color' , '#1b1b1b');
+                            $('#borrowMessageText').css('color', '#1b1b1b');
+                            $('#borrowMessageModal').modal('show');
+                        }
                         // if the book is unavailable then display both notify button and close button
                         if (response.status === 'unavailable') {
                             $('#notify').css('display', 'block');
