@@ -156,7 +156,7 @@ def logout_user(request):
     return redirect('signup:homepage')
     
 def show_books(request):
-    books = Books.objects.all() #filter(availability='Yes')
+    books = Books.objects.all() 
     return render(request , 'forms/show_books.html' , {
         'books' : books
     })

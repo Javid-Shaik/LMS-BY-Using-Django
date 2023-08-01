@@ -91,14 +91,15 @@
                     var message = response.message;
                     var success = response.success;
                     var status = response.status;
-                    showBorrowNotification(message, success , status);
+                    var book = response.book;
+                    showBorrowNotification(message, success , status , book);
                 },
                 error: function(xhr, textStatus, errorThrown) {
                     console.log(xhr.responseText);
                 }
             });
         });
-        function showBorrowNotification(message , success , status) {
+        function showBorrowNotification(message , success , status , book) {
             // Intercept the AJAX response when the user borrows a book
             $(document).ajaxComplete(function (event, xhr, settings) {
                 // Check if the response contains the message and success status

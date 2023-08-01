@@ -37,7 +37,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-sm mt-5px me-auto" id="notify">
-                    <a href="{% url 'notify_book_available' book_id=10 %}" id="notify-link">Notify</a>
+                    <a href="{% url 'notify_book_available' book_id=book.id %}" id="notify-link">Notify</a>
                 </button>                
                 <button type="button" class="btn btn-secondary btn-sm mt-5px" id="close" data-bs-dismiss="modal">Close</button>
             </div>

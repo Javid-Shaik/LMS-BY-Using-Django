@@ -80,6 +80,7 @@ def borrow_books(request , book_id):
     if user_exists_in_member_model:
         member = Member.objects.get(user=user)
     else :
+        render(request , "profile/subcribe.html")
         member = Member.objects.create(user=user , address = user.address , phone = user.phone )
     already_borrowed = member.borrowed_books.filter(id=book_id).exists()
     
@@ -90,7 +91,7 @@ def borrow_books(request , book_id):
         status = Borrowings.objects.filter(book=book , member=member, status="Borrowed").exists()
         if status:
             message = f"The book {book.title} is already borrowed."
-            return JsonResponse({'message': message, 'success': False , 'status':'borrowed'})
+            return JsonResponse({'message': message, 'success': False , 'status':'borrowed' , 'book':book})
         
         message = f"You have successfully borrowed {book.title}"
         borrowing = Borrowings(
@@ -105,11 +106,11 @@ def borrow_books(request , book_id):
         if book.copies_available==0 :
             book.availability = 'No'
         book.save()
-        return JsonResponse({'message': message, 'success': True , 'status':'now_borrowed'})
+        return JsonResponse({'message': message, 'success': True , 'status':'now_borrowed' , 'book':book})
     
     elif book.availability == 'No' :
         message = f"The book {book.title} is currently not available."
-        return JsonResponse({'message': message, 'success': False , 'status':'unavailable'})
+        return JsonResponse({'message': message, 'success': False , 'status':'unavailable' , 'book':book})
     
     else:
         message = f"You have successfully borrowed {book.title}"
@@ -125,7 +126,7 @@ def borrow_books(request , book_id):
         if book.copies_available==0 :
             book.availability = 'No'
         book.save()
-        return JsonResponse({'message': message, 'success': True , 'status':'now_borrowed'})
+        return JsonResponse({'message': message, 'success': True , 'status':'now_borrowed' , 'book':book})
     
 #Fuctionality for searching the book
 
@@ -195,7 +196,7 @@ def return_book(request , book_id):
 def notify_book_available(request, book_id):
     print(book_id)
     user = request.user
-    book = Books.objects.get(id=10)
+    book = Books.objects.get(id=book_id)
     print(book)
     if book.availability:
         # Book is already available, send an immediate notification
