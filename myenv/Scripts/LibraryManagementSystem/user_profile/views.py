@@ -221,6 +221,6 @@ def subscribe(request , username):
 def subscription(request , username):
     user = get_object_or_404(RegisterModel, username=username)
     member = Member.objects.create(user=user, address=user.address ,phone=user.phone)
-    return redirect('subscribe' , username=username)
+    return redirect('signup:show_books')
     
     
