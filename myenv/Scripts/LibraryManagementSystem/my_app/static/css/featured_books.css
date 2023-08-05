@@ -96,4 +96,50 @@
  }
   
   /* Add any additional styles or modifications as desired */
+
+  /* Media Query for screens 768px and below */
+@media (max-width: 768px) {
+  section {
+    margin-top: 30%;
+  }
+  
+  .featured-books {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    grid-gap: 10px;
+  }
+  
+  .book-card {
+    padding: 5px;
+  }
+  
+  .book-image {
+    width: 100px;
+    height: 150px;
+  }
+  
+  .book-title {
+    font-size: 10px;
+  }
+  
+  .book-author {
+    font-size: 13px;
+  }
+  
+  .book-description {
+    font-size: 4px;
+  }
+  
+  .borrow-button {
+    padding: 3px 5px;
+    font-size: 10px;
+  }
+  
+  .borrow-button a {
+    margin-right: 4px;
+  }
+  .footer {
+    font-size: 10px;
+  }
+}
+
   

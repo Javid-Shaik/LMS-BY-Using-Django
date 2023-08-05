@@ -5,6 +5,7 @@ from django.contrib.auth.hashers import make_password
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import AbstractUser, BaseUserManager ,PermissionsMixin
 from datetime import date
+from django.utils import timezone
 
 class UserManager(BaseUserManager):
     
@@ -116,7 +117,7 @@ class Borrowings(models.Model):
 
     member = models.ForeignKey(Member , on_delete=models.CASCADE)
     book = models.ForeignKey(Books , on_delete=models.CASCADE)
-    borrowed_date = models.DateField(default=date.today())
+    borrowed_date = models.DateField(default=timezone.now)
     due_date = models.DateField()
     return_date = models.DateField(null=True , blank=True)
     fine_amount = models.DecimalField(max_digits=8, decimal_places=2, null=True,blank=True)

@@ -22,6 +22,7 @@ from django.utils.encoding import force_bytes, force_str
 
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.hashers import make_password
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 def register(request):
     if request.method == 'POST':
@@ -156,10 +157,23 @@ def logout_user(request):
     return redirect('signup:homepage')
     
 def show_books(request):
-    books = Books.objects.all() 
-    return render(request , 'forms/show_books.html' , {
-        'books' : books
-    })
+    book_list = Books.objects.all()
+
+    # Number of books to display per page
+    per_page = 2
+
+    paginator = Paginator(book_list, per_page)
+    page = request.GET.get('page')
+    try:
+        books = paginator.page(page)
+    except PageNotAnInteger:
+        # If page is not an integer, deliver first page.
+        books = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range, deliver last page of results.
+        books = paginator.page(paginator.num_pages)
+
+    return render(request, 'forms/show_books.html', {'books': books})
     
 def featured_books(request):
     books = Books.objects.filter(availability="No")

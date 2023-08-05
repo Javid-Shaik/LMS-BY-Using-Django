@@ -53,7 +53,7 @@ footer {
     width: 100%;
     top: 0;
     z-index: 9999;
-    padding: 25px 0;
+    padding: 22px 0;
     transition: all 0.3s ease;
     background: #a09ea02f;
 }
@@ -120,8 +120,7 @@ footer {
     font-size: 18px;
     padding-left: 10px;
     background-size: 0px;
-    caret-color: #1b1b1b;
-    
+    caret-color: #1b1b1b; 
 }
 .search .drop-down {
     font-size: 18px;
@@ -159,7 +158,7 @@ footer {
 }
 
 
-@media (max-width : 868px){
+@media (max-width : 768px){
     .icon{
         display: block;
     }
@@ -173,7 +172,7 @@ footer {
         top: 15px;
     }
      .navbar .menu-list{
-        width: 50%;
+        width: 95%;
         position: fixed;
         top: 0;
         left: -100%; 
@@ -207,11 +206,23 @@ footer {
         color: #007bff;
     }
     .search {
-    display:none;
+        margin-top: 30px;
+    }
+    .search input {
+        font-size: 12px;
+        width: 50px;
+    }
+    .search .drop-down {
+        font-size: 12px;
+        width: 50px;
+        cursor: pointer;
+    }
+    .search i{
+        padding-left: 7px;
+    }
+    .footer {
+        padding: 10px;
+        font-size: 18px;
     }
 }
-@media (max-width : 1230px){
-    .navbar .logo a{
-        font-size: 27px;
-    }
-}
+

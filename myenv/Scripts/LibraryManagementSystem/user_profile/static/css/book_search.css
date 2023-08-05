@@ -1,55 +1,96 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: "Arial" sans-serif;
+/* Add this CSS to your book_search.css file or within a <style> tag in your HTML */
+
+/* Overall section styling */
+section {
+    margin-top: 30%;
+    display: flex;
+    justify-content: center;
 }
 
-body {
-    background-color: #d6d2d2;
+.searched-books {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    grid-gap: 20px;
 }
 
-.container {
-    margin-top: 50px;
+/* Book card styling */
+.book-card {
+    background-color: #f5f5f5;
+    padding: 20px;
     border-radius: 5px;
-}
-.card-body p{
-    font-size:12px;
-    padding-top: 1px;
-}
-.row .column {
-    width: 200px;
-    height: auto;
-}
-
-.card img {
-    border-radius: 4px;
-    border: none;
-}
-.row .column .card {
-    margin-right: 10px;
-}
-
-  .error-box {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0, 0, 0, 0.5);
-    z-index: 9999;
-  }
-
-  .error-box p {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: red;
-    color: white;
-    padding: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     text-align: center;
-    width: 300px;
+}
 
-  }
+.book-image {
+    width: 100px;
+    height: 150px;
+    object-fit: cover;
+    margin: 0 auto 10px;
+}
+
+.card-title {
+    font-size: 18px;
+    margin-bottom: 5px;
+}
+
+.card-text {
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
+/* Borrow button styling */
+.borrow-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 15px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.borrow-button a {
+    text-decoration: none;
+    color: #fff;
+}
+
+.borrow-button:hover {
+    background-color: #0056b3;
+}
+
+.borrow-button:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(30, 144, 255, 0.3);
+}
+
+/* Login button styling */
+.login_button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 15px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.login_button a {
+    text-decoration: none;
+    color: #fff;
+}
+
+.login_button:hover {
+    background-color: #0056b3;
+}
+
+.login_button:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(30, 144, 255, 0.3);
+}
