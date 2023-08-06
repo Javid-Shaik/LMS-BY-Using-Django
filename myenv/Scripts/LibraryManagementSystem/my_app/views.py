@@ -160,7 +160,7 @@ def show_books(request):
     book_list = Books.objects.all()
 
     # Number of books to display per page
-    per_page = 2
+    per_page = 20
 
     paginator = Paginator(book_list, per_page)
     page = request.GET.get('page')

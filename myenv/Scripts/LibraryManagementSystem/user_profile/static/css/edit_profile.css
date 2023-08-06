@@ -6,7 +6,6 @@
 
 .containers  {
     background: #5c5b5b;;
-    /* position: sticky; */
     width: 450px;
     height:500px;
     margin-left: 400px;
@@ -117,38 +116,39 @@ input[type="number"]::-webkit-outer-spin-button {
     font-size: 14px;
 }
 
-@media (max-width: 868px){
+/* Media query for screens up to 768px */
+@media (max-width: 768px) {
     .containers {
-        width: 330px;
-        height: 450px;
-        margin-left: 80px;
+        width: auto;
+        margin: 35% 20px;
+        height: 500px;
+        filter: drop-shadow(5px 5px 15px #fff);
     }
-    .containers h1{
-        font-size: 20px;
-        border-bottom: 1px solid #e6e6e6;
-        color: #e6e6e6;
-    }
-    .box .fields {
-        font-size: 12px;
-    }
-    .box .name-detail .inputs input  {
-        width: 150px;
-        height: 25px;
+    .name-detail .fields {
         margin-right: 10px;
     }
-    .containers form .inputs input {
-        width: 150px;
-        height: 25px;
+    .containers form .name-detail .inputs input {
+        width: 100%;
+        margin-right: 10px;
+        margin-bottom: 10px;
+    }
+
+    .containers form .box .fields label {
         font-size: 12px;
     }
-    .containers .back-btn a{
-        font-size: 15px;
-        background-color: #333;
-        width: 23px;
-        padding-right: 10px;
-        padding-bottom: 5px;
+
+    .containers form .inputs input,
+    .containers form .inputs textarea,
+    .containers form .image input,
+    .containers form .button input {
+        width: 100%;
     }
-    .containers form .address textarea {
+
+    .containers .back-btn a {
+        margin-bottom: 10px;
+        margin-top: 10px;
+    }
+    .footer{
         font-size: 12px;
     }
 }

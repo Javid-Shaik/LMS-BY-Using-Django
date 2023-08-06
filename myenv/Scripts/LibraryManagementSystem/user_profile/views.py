@@ -14,7 +14,7 @@ from django.contrib.auth.decorators import login_required
 # Create your views here.
 
 #Functionality for diplaying the user profile.
-
+@login_required
 def user_profile(request , username ):
     try :
         member = Member.objects.get(user__username=username)
@@ -167,6 +167,7 @@ def learn_more(request,book_id):
         'book': book
     })
 
+@login_required
 def return_book(request , book_id):
     user = request.user   
     book = Books.objects.get(id=book_id)

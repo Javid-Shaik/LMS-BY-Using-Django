@@ -188,6 +188,13 @@ main {
 
 
 @media (max-width: 868px){
+    .activity table {
+      border: 1px solid greenyellow;
+      border-style: inset;
+      background: #464747;
+      overflow-x: scroll;
+  } 
+
     main {
         display: flex;
         flex-direction: column;

@@ -168,9 +168,6 @@ input[type="number"]::-webkit-outer-spin-button {
         /* filter: drop-shadow(5px 5px 5px 10px #ccc); */
         width: 300px;
     }
-    .footer {
-        font-size: 10px;
-    }
     .form form .Role label {
         font-size: 10px;
     }

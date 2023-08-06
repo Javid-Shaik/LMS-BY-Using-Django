@@ -6,10 +6,7 @@
 {% block content %}
 
 <link rel="stylesheet" type="text/css" href="{% static 'css/show_books.css' %}">
-<style>
-    
-
-</style>
+<link rel="stylesheet" type="text/css" href="{% static 'css/base_styles.css' %}">
 <section >
     <table class="books book-details">
         <tr>
@@ -35,7 +32,7 @@
                         <p>{{ book.description }}</p>
                     </div>
                 </div>
-                <p class="title">{{ book.title }}</p>
+                <div class="title">{{ book.title }}</div>
             </td>
             <td>{{ book.author_name }}
             <td>{{ book.isbn }}</td>

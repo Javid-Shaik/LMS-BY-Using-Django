@@ -190,13 +190,18 @@ main {
 
 
 @media (max-width: 868px){
+    .activity {
+      margin-left: 0;
+      margin-right: 0;
+      overflow-x: auto;
+    }
     main {
         display: flex;
         flex-direction: column;
     }
     .component {
         width: 300px;
-        height:300px;
+        height:320px;
         margin-left: 10px;
     }
     .component .user {
@@ -213,7 +218,7 @@ main {
         padding-bottom: 5px;
     }
     .component .edit-btn button {
-        width: 180px;
+        width: 200px;
         height: 30px;
         text-align: center;
         color: #14e625;
@@ -242,13 +247,13 @@ main {
         margin-top: 10px;
         color: #ccc;
         margin-left: 10px;
-        font-size: 12px;
+        font-size: 10px;
     }
     .activity th,
     .activity td {
       padding: 5px;
-      text-align: left;
-      border-bottom: 1px solid #ccc;
+      font-size: 10px;
+
     }
 
     .activity .cover-image {
@@ -266,30 +271,25 @@ main {
         text-decoration: none;
         margin-right: 8px;
       }
+      .component .actions {
+        margin: 0; 
+
+      }
 }
 
 
-/* @media only screen and (max-width: 600px) {
-
-  .activity table {
-    font-size: 14px;
+@media (max-width: 768px) {
+  .component {
+      margin-top: 110px; /* Reset margin for larger screens */
   }
 
-  .activity .book-details {
-    flex-direction: column;
-    align-items: flex-start;
+  .profile-picture img {
+      margin-right: 20px; /* Reset margin for larger screens */
   }
 
-  .activity .cover-image {
-    margin-right: 0;
-    margin-bottom: 10px;
+  .activity {
+      margin-left: 0;
+      margin-right: 0;
+      overflow-x: auto;
   }
-} */
-
-t1 {
-  color:#4a9ac9;
-  background-color:  #2b2829;
-  
 }
-
-  

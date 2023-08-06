@@ -210,7 +210,7 @@ footer {
     }
     .search input {
         font-size: 12px;
-        width: 50px;
+        width: 70px;
     }
     .search .drop-down {
         font-size: 12px;
@@ -221,8 +221,7 @@ footer {
         padding-left: 7px;
     }
     .footer {
-        padding: 10px;
-        font-size: 18px;
+        font-size: 10px;
     }
 }
 

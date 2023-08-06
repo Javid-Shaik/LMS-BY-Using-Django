@@ -35,6 +35,7 @@ footer {
     color: #ccc;
     padding-top: 10px;
     background-color: #333;
+    width: 100%;
 } 
   
 .content {
@@ -159,7 +160,7 @@ footer {
 }
 
 
-@media (max-width : 868px){
+@media (max-width : 768px){
     .icon{
         display: block;
     }
@@ -209,6 +210,12 @@ footer {
     .search {
     display:none;
     }
+    /* Footer Styling */
+    .footer {
+        width: 100%;
+        /* Add any additional styling you want for the footer */
+    }
+
 }
 @media (max-width : 1230px){
     .navbar .logo a{
