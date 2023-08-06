@@ -60,13 +60,9 @@
   }
 }
 
-/* CSS for Base Styles (base_styles.css) */
-
-/* Add the following styles for responsiveness */
 
 /* Media query for screens smaller than 768px */
 @media (max-width: 767px) {
-  /* Adjust the font size and padding for smaller screens */
   .hero-content h2 {
     font-size: 24px;
     padding: 0 10px;
@@ -79,7 +75,6 @@
 
 /* Media query for screens smaller than 480px */
 @media (max-width: 479px) {
-  /* Adjust the font size and padding for even smaller screens */
   .hero-content h2 {
     font-size: 20px;
     padding: 0 5px;

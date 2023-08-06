@@ -1,4 +1,3 @@
-/* Add appropriate styles for the featured-books section */
 
   section {
     margin-top:100px;
@@ -95,7 +94,6 @@
     color: #ccc;
  }
   
-  /* Add any additional styles or modifications as desired */
 
   /* Media Query for screens 768px and below */
 @media (max-width: 768px) {

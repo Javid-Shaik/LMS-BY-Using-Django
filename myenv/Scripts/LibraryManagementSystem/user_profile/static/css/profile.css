@@ -280,11 +280,11 @@ main {
 
 @media (max-width: 768px) {
   .component {
-      margin-top: 110px; /* Reset margin for larger screens */
+      margin-top: 110px; 
   }
 
   .profile-picture img {
-      margin-right: 20px; /* Reset margin for larger screens */
+      margin-right: 20px;
   }
 
   .activity {
