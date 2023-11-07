@@ -1,0 +1,7 @@
+services:
+  - name: web
+    env: python
+    buildCommand: ./manage.py migrate
+    startCommand: gunicorn LibraryManagementSystem.wsgi --bind 0.0.0.0:$PORT
+    automaticBuildAndDeploy: true
+    healthCheckPath: /health
