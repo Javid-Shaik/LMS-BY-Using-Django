@@ -14,4 +14,4 @@ RUN pip install -r requirements.txt
 
 COPY . /app
 
-ENTRYPOINT [ "gunicorn", "myenv.Scripts.LibraryManagementSystem.LibraryManagementSystem.wsgi:application"]
+ENTRYPOINT [ "gunicorn", "LibraryManagementSystem.LibraryManagementSystem.wsgi:application"]
