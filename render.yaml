@@ -2,7 +2,7 @@ services:
   - name: web
     env: python
     buildCommand: |
-      /opt/render/project/src/.venv/bin/python -m pip install --upgrade pip
+      ./opt/render/project/src/.venv/bin/python -m pip install --upgrade pip
       ./manage.py migrate
     startCommand: gunicorn LibraryManagementSystem.wsgi --bind 0.0.0.0:$PORT
     automaticBuildAndDeploy: true
