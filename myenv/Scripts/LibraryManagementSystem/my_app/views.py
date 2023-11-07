@@ -49,7 +49,7 @@ def register(request):
                 return redirect("signup:register")        
             
             elif  RegisterModel.objects.filter(email=email):
-                messages.error(request ,  "Username is already taken",'signup')
+                messages.error(request ,  "Mail id is already exits",'signup')
                 return redirect("signup:register")
             
             user = RegisterModel(
@@ -109,8 +109,7 @@ def details(request):
     for book in overdue_books:
         subject = f"Reminder: Return Overdue Book - {book.book.title}"
         message = f"Dear {book.member.user.username},\n\nThis is a reminder to return the book '{book.book.title}' as soon as possible. It is currently overdue.\n\nThank you."
-        print(subject)
-        print(message)
+
         # from_email = settings.DEFAULT_FROM_EMAIL
         # recipient_list = [book.member.user.email]
 
@@ -119,8 +118,8 @@ def details(request):
     for book in upcoming_books:
         subject = f"Upcoming Due Date: {book.book.title}"
         message = f"Dear {book.member.user.username},\n\nThis is a reminder that the book '{book.book.title}' is due in {book.due_date - date.today()} days.\n\nThank you."
-        print(subject)
-        print(message)
+        # print(subject)
+        # print(message)
     # print(users)
     return render(request,"forms/details.html",{
         "users":users , 'books':books
@@ -139,7 +138,7 @@ def login_user(request):
         username = request.POST.get('username')
         password = request.POST.get('password')
         user = authenticate(request , username=username, password=password)
-        print(user)
+
         if user is not None :
             login(request, user)
             return redirect('signup:homepage')

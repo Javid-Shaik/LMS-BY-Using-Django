@@ -42,3 +42,11 @@ def send_upcoming_due_date_notifications():
         print(subject , message , recipient_list)
         send_mail(subject, message, from_email, recipient_list, fail_silently=True)
     
+
+from .api import fetch_book_data, add_book_to_database
+
+@shared_task
+def fetch_and_add_book(isbn):
+    book_data = fetch_book_data(isbn)
+    if book_data:
+        add_book_to_database(book_data)
